@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/pokeListFragment">
+
+    <fragment
+        android:id="@+id/pokeListFragment"
+        android:name="com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment"
+        android:label="Покемоны"
+        tools:layout="@layout/fragment_poke_list" >
+        <action
+            android:id="@+id/action_pokeListFragment_to_pokeDetailFragment"
+            app:destination="@id/pokeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokeDetailFragment"
+        android:name="com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment"
+        android:label="fragment_poke_detail"
+        tools:layout="@layout/fragment_poke_detail" />
+    <fragment
+        android:id="@+id/pokeFavoritesFragment"
+        android:name="com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment"
+        android:label="Любимые покемоны"
+        tools:layout="@layout/fragment_poke_favorites" />
+</navigation>
