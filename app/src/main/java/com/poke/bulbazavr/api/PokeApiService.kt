@@ -1,6 +1,6 @@
 package com.poke.bulbazavr.api
 
-import com.poke.bulbazavr.data.BaseResponse
+import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.data.Pokemon
 import com.poke.bulbazavr.utils.Constans.BASE_POKE_API
 import io.reactivex.rxjava3.core.Observable

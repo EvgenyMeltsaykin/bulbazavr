@@ -6,19 +6,19 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.appComponent
 import com.poke.bulbazavr.data.Pokemon
 import com.poke.bulbazavr.databinding.FragmentPokeListBinding
 import com.poke.bulbazavr.feature.pokeListScreen.adapters.PokemonsAdapter
 import com.poke.bulbazavr.utils.Constans.LOAD_THRESHOLD
-import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 
-class PokeListFragment : MvpAppCompatFragment(R.layout.fragment_poke_list), PokeListView {
+class PokeListFragment : BaseFragment(R.layout.fragment_poke_list), PokeListView {
 
     private lateinit var binding: FragmentPokeListBinding
     private var pokemonsAdapter: PokemonsAdapter? = null
@@ -38,6 +38,7 @@ class PokeListFragment : MvpAppCompatFragment(R.layout.fragment_poke_list), Poke
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPokeListBinding.bind(view)
+        bottomNavigationShow()
         setAdapter()
     }
 
