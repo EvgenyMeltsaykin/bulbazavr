@@ -2,6 +2,7 @@ package com.poke.bulbazavr.api
 
 import com.poke.bulbazavr.data.BaseResponse
 import com.poke.bulbazavr.data.Pokemon
+import com.poke.bulbazavr.utils.Constans.BASE_POKE_API
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,17 +20,14 @@ interface PokeApiService {
     fun getPokemons(@Url url: String): Observable<BaseResponse<Pokemon>>
 
     companion object Factory {
-
         fun create(): PokeApiService {
-            var interceptor = HttpLoggingInterceptor()
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
-
+            val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(logger).build()
             val retrofit = retrofit2.Retrofit.Builder()
                 .client(client)
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://pokeapi.co/api/v2/")
+                .baseUrl(BASE_POKE_API)
                 .build()
             return retrofit.create(PokeApiService::class.java)
         }

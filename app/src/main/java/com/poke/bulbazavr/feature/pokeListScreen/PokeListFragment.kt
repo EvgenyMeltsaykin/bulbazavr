@@ -11,6 +11,7 @@ import com.poke.bulbazavr.appComponent
 import com.poke.bulbazavr.data.Pokemon
 import com.poke.bulbazavr.databinding.FragmentPokeListBinding
 import com.poke.bulbazavr.feature.pokeListScreen.adapters.PokemonsAdapter
+import com.poke.bulbazavr.utils.Constans.LOAD_THRESHOLD
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -32,31 +33,34 @@ class PokeListFragment : MvpAppCompatFragment(R.layout.fragment_poke_list), Poke
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
         super.onAttach(context)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPokeListBinding.bind(view)
-        pokemonsAdapter = PokemonsAdapter(
-            onPokemonClick = { name ->
-                presenter.onPokemonClick()
-            }
-        )
+        setAdapter()
+    }
 
-        binding.rvPokemons.adapter = pokemonsAdapter
-
-        binding.rvPokemons.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = LinearLayoutManager::class.java.cast(recyclerView.layoutManager)
-                val totalItemCount = binding.rvPokemons.layoutManager!!.itemCount
-                val lastVisible = layoutManager.findLastVisibleItemPosition()
-                val endHasBeenReached = lastVisible + 5 >= totalItemCount
-                if (totalItemCount > 0 && endHasBeenReached) {
-                    presenter.loadNextPage()
+    private fun setAdapter() {
+        with(binding) {
+            pokemonsAdapter = PokemonsAdapter(
+                onPokemonClick = { name ->
+                    presenter.onPokemonClick()
                 }
-            }
-        })
+            )
+            rvPokemons.adapter = pokemonsAdapter
+            rvPokemons.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisible = layoutManager.findLastVisibleItemPosition()
+                    val endHasBeenReached = lastVisible + LOAD_THRESHOLD >= totalItemCount
+                    if (totalItemCount > 0 && endHasBeenReached) {
+                        presenter.loadNextPage()
+                    }
+                }
+            })
+        }
     }
 
     override fun onDestroy() {

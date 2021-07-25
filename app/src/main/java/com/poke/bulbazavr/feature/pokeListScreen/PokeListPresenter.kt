@@ -22,16 +22,12 @@ class PokeListPresenter @Inject constructor(
         loadNextPage()
     }
 
-
     fun loadNextPage() {
         if (isLoading || nextPageUrl == null) return
         isLoading = true
         val getPokemons =
-            if (nextPageUrl!!.isEmpty())
-                pokeApiService.getPokemons()
-            else pokeApiService.getPokemons(
-                nextPageUrl!!
-            )
+            if (nextPageUrl!!.isEmpty()) pokeApiService.getPokemons()
+            else pokeApiService.getPokemons(nextPageUrl!!)
 
         getPokemons.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -45,7 +41,6 @@ class PokeListPresenter @Inject constructor(
                     isLoading = false
                     Log.d("TAG", "Throwable $it")
                 })
-
     }
 
     fun onPokemonClick() {
