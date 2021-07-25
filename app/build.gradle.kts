@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     kotlin("plugin.serialization")
     id("androidx.navigation.safeargs")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -64,7 +65,7 @@ dependencies {
 
     implementation(Glide.glide)
     kapt(Glide.compiler)
-
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
     //implementation ("androidx.fragment:fragment-ktx:1.3.6")
     //implementation ("androidx.core:core-ktx:1.6.0")
     implementation ("io.ktor:ktor-client-serialization-jvm:1.6.1")

@@ -2,35 +2,35 @@ package com.poke.bulbazavr.feature.pokeListScreen
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.poke.bulbazavr.App
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.poke.bulbazavr.R
+import com.poke.bulbazavr.appComponent
 import com.poke.bulbazavr.data.Pokemon
 import com.poke.bulbazavr.databinding.FragmentPokeListBinding
 import com.poke.bulbazavr.feature.pokeListScreen.adapters.PokemonsAdapter
-import dagger.android.support.AndroidSupportInjection
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
+
 
 class PokeListFragment : MvpAppCompatFragment(R.layout.fragment_poke_list), PokeListView {
 
     private lateinit var binding: FragmentPokeListBinding
     private var pokemonsAdapter: PokemonsAdapter? = null
 
+    @Inject
     @InjectPresenter
     lateinit var presenter: PokeListPresenter
 
+    @ProvidePresenter
+    fun providePresenter() = presenter
 
     override fun onAttach(context: Context) {
-       // (activity?.application as App).appComponent.inject(this)
+        context.appComponent.inject(this)
         super.onAttach(context)
 
     }
@@ -45,6 +45,18 @@ class PokeListFragment : MvpAppCompatFragment(R.layout.fragment_poke_list), Poke
         )
 
         binding.rvPokemons.adapter = pokemonsAdapter
+
+        binding.rvPokemons.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = LinearLayoutManager::class.java.cast(recyclerView.layoutManager)
+                val totalItemCount = binding.rvPokemons.layoutManager!!.itemCount
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+                val endHasBeenReached = lastVisible + 5 >= totalItemCount
+                if (totalItemCount > 0 && endHasBeenReached) {
+                    presenter.loadNextPage()
+                }
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -59,5 +71,6 @@ class PokeListFragment : MvpAppCompatFragment(R.layout.fragment_poke_list), Poke
 
     override fun setPokemons(pokemons: List<Pokemon>) {
         pokemonsAdapter?.submitList(pokemons)
+        pokemonsAdapter?.notifyDataSetChanged()
     }
 }
