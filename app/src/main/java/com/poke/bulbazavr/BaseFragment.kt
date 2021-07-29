@@ -9,6 +9,10 @@ open class BaseFragment(layoutId: Int) : MvpAppCompatFragment(layoutId) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    protected fun setToolbarTitle(title: String) {
+        (activity as UIControl).setToolbarTitle(title)
+    }
+
     protected fun bottomNavigationShow() {
         (activity as BottomNavigation).bottomNavigationShow()
     }

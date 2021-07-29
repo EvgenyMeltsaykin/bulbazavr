@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.appComponent
-import com.poke.bulbazavr.data.Pokemon
+import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.databinding.FragmentPokeListBinding
 import com.poke.bulbazavr.feature.pokeListScreen.adapters.PokemonsAdapter
 import com.poke.bulbazavr.utils.Constans.LOAD_THRESHOLD
@@ -45,8 +45,8 @@ class PokeListFragment : BaseFragment(R.layout.fragment_poke_list), PokeListView
     private fun setAdapter() {
         with(binding) {
             pokemonsAdapter = PokemonsAdapter(
-                onPokemonClick = { name ->
-                    presenter.onPokemonClick()
+                onPokemonClick = { pokemon ->
+                    presenter.onPokemonClick(pokemon)
                 }
             )
             rvPokemons.adapter = pokemonsAdapter
@@ -69,12 +69,12 @@ class PokeListFragment : BaseFragment(R.layout.fragment_poke_list), PokeListView
         pokemonsAdapter = null
     }
 
-    override fun navigateToDetailPokemon() {
-        val action = PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment()
+    override fun navigateToDetailPokemon(name: String) {
+        val action = PokeListFragmentDirections.actionPokeListFragmentToPokeDetailFragment(name)
         binding.root.findNavController().navigate(action)
     }
 
-    override fun setPokemons(pokemons: List<Pokemon>) {
+    override fun setPokemons(pokemons: List<PokemonDTO>) {
         pokemonsAdapter?.submitList(pokemons)
         pokemonsAdapter?.notifyDataSetChanged()
     }

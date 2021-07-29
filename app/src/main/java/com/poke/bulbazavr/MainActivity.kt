@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.poke.bulbazavr.databinding.ActivityMainBinding
 import moxy.MvpAppCompatActivity
 
-class MainActivity : MvpAppCompatActivity(), BottomNavigation {
+class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
@@ -49,5 +49,9 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun setToolbarTitle(title: String) {
+        binding.toolbar.title = title.replaceFirstChar { it.uppercaseChar() }
     }
 }

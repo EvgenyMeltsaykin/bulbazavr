@@ -7,20 +7,23 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.poke.bulbazavr.R
-import com.poke.bulbazavr.data.Pokemon
+import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
 import com.poke.bulbazavr.utils.EqualsDiffCallback
 
 class PokemonsAdapter(
-    val onPokemonClick: (pokemon: Pokemon)->Unit
-): ListAdapter<Pokemon, PokemonsAdapter.PokemonViewHolder>(EqualsDiffCallback { a, b -> a == b }){
+    val onPokemonClick: (pokemon: PokemonDTO) -> Unit
+) : ListAdapter<PokemonDTO, PokemonsAdapter.PokemonViewHolder>(EqualsDiffCallback { a, b -> a == b }) {
 
-    class PokemonViewHolder(private val binding:PokemonListItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:Pokemon,
-                onPokemonClick: (pokemon: Pokemon) -> Unit){
-            with(binding){
-                Glide.with(itemView).load(item.urlPhoto).into(ivPokemonAvatar)
-                tvName.text = item.name
+    class PokemonViewHolder(private val binding: PokemonListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(
+            item: PokemonDTO,
+            onPokemonClick: (pokemon: PokemonDTO) -> Unit
+        ) {
+            with(binding) {
+                Glide.with(itemView).load(item.sprites.frontDefault).into(ivPokemonAvatar)
+                tvName.text = item.name.replaceFirstChar { it.uppercaseChar() }
                 root.setOnClickListener {
                     onPokemonClick.invoke(item)
                 }

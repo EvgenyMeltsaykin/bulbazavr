@@ -18,7 +18,11 @@
         android:id="@+id/pokeDetailFragment"
         android:name="com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment"
         android:label="fragment_poke_detail"
-        tools:layout="@layout/fragment_poke_detail" />
+        tools:layout="@layout/fragment_poke_detail">
+        <argument
+            android:name="pokemonName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/pokeFavoritesFragment"
         android:name="com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment"

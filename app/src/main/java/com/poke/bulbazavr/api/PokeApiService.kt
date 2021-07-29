@@ -1,8 +1,7 @@
 package com.poke.bulbazavr.api
 
 import com.poke.bulbazavr.api.data.responses.BaseResponse
-import com.poke.bulbazavr.api.data.responses.Sprites
-import com.poke.bulbazavr.data.Pokemon
+import com.poke.bulbazavr.api.data.responses.PokemonResponse
 import com.poke.bulbazavr.utils.Constans.BASE_POKE_API
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -19,10 +18,10 @@ interface PokeApiService {
     fun getPokemons(
         @Query("offset") offset: Int,
         @Query("limit") limit: Int = 20
-    ): Single<BaseResponse<Pokemon>>
+    ): Single<BaseResponse<PokemonResponse>>
 
     @GET("pokemon/{name}")
-    fun getPokemon(@Path("name") name: String): Single<Sprites>
+    fun getPokemon(@Path("name") name: String): Single<PokemonResponse>
 
     companion object Factory {
         fun create(): PokeApiService {
