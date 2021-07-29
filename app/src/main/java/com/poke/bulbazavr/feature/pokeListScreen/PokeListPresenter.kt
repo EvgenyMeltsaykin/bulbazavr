@@ -1,8 +1,8 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
 import android.util.Log
+import com.poke.bulbazavr.api.data.request.OffsetLimitRequest
 import com.poke.bulbazavr.api.data.responses.BaseResponse
-import com.poke.bulbazavr.api.useCase.GetNextPagePokemonsUseCase
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.data.Pokemon
 import moxy.InjectViewState
@@ -11,16 +11,16 @@ import javax.inject.Inject
 
 @InjectViewState
 class PokeListPresenter @Inject constructor(
-    private val getPokemonsUseCase: GetPokemonsUseCase,
-    private val getNextPagePokemonsUseCase: GetNextPagePokemonsUseCase
+    private val getPokemonsUseCase: GetPokemonsUseCase
 ) : MvpPresenter<PokeListView>() {
 
     private val pokemons: MutableList<Pokemon> = mutableListOf()
+    private var page: Int = 0
     private var nextPageUrl: String? = ""
     private var isLoading = false
 
     init {
-        getFirstPokemons()
+        loadNextPage()
     }
 
     fun loadNextPage() {
@@ -29,22 +29,9 @@ class PokeListPresenter @Inject constructor(
         getNextPagePokemons()
     }
 
-    private fun getFirstPokemons() {
-        getPokemonsUseCase.invoke(
-            params = Unit,
-            onSuccess = { response ->
-                onSuccessLoadPokemons(response)
-            },
-            onFailed = {
-                isLoading = false
-                Log.d("TAG", "Throwable $it")
-            }
-        )
-    }
-
     private fun getNextPagePokemons() {
-        getNextPagePokemonsUseCase.invoke(
-            params = nextPageUrl!!,
+        getPokemonsUseCase.invoke(
+            params = OffsetLimitRequest(page = page),
             onSuccess = { response ->
                 onSuccessLoadPokemons(response)
             },
@@ -58,7 +45,8 @@ class PokeListPresenter @Inject constructor(
     private fun onSuccessLoadPokemons(response: BaseResponse<Pokemon>) {
         isLoading = false
         nextPageUrl = response.next
-        pokemons.addAll(response.results)
+        page++
+        pokemons.addAll(response.results!!)
         viewState.setPokemons(pokemons)
     }
 

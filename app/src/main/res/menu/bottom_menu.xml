@@ -3,8 +3,10 @@
 
     <item
         android:id="@+id/pokeListFragment"
+        android:icon="@drawable/ic_all_poke"
         android:title="Все" />
     <item
         android:id="@+id/pokeFavoritesFragment"
+        android:icon="@drawable/ic_love_poke"
         android:title="Избранное" />
 </menu>

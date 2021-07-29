@@ -1,7 +1,7 @@
 package com.poke.bulbazavr.di
 
 import com.poke.bulbazavr.api.PokeApiService
-import com.poke.bulbazavr.api.useCase.GetNextPagePokemonsUseCase
+import com.poke.bulbazavr.api.useCase.GetPokemonUseCase
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import dagger.Component
@@ -28,17 +28,16 @@ class NetworkModule {
 
     @Provides
     fun getPokemonsUseCase(
-        pokeApiService: PokeApiService
-    ): GetPokemonsUseCase {
-        return GetPokemonsUseCase(pokeApiService)
-    }
+        pokeApiService: PokeApiService,
+        getPokemonUseCase: GetPokemonUseCase
+    ): GetPokemonsUseCase = GetPokemonsUseCase(pokeApiService)
+
 
     @Provides
-    fun getNextPagePokemonsUseCase(
+    fun getPokemonUseCase(
         pokeApiService: PokeApiService
-    ): GetNextPagePokemonsUseCase {
-        return GetNextPagePokemonsUseCase(pokeApiService)
-    }
+    ): GetPokemonUseCase = GetPokemonUseCase(pokeApiService)
+
 }
 
 @Module

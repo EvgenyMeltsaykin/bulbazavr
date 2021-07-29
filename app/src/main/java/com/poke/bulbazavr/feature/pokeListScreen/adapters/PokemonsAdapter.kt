@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.data.Pokemon
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
@@ -18,7 +19,7 @@ class PokemonsAdapter(
         fun bind(item:Pokemon,
                 onPokemonClick: (pokemon: Pokemon) -> Unit){
             with(binding){
-                //Glide.with(itemView).load(item.urlPhoto).into(ivPokemonAvatar)
+                Glide.with(itemView).load(item.urlPhoto).into(ivPokemonAvatar)
                 tvName.text = item.name
                 root.setOnClickListener {
                     onPokemonClick.invoke(item)

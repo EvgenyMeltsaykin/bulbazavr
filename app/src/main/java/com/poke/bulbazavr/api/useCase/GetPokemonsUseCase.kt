@@ -1,6 +1,7 @@
 package com.poke.bulbazavr.api.useCase
 
 import com.poke.bulbazavr.api.PokeApiService
+import com.poke.bulbazavr.api.data.request.OffsetLimitRequest
 import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.data.Pokemon
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -10,37 +11,29 @@ import javax.inject.Inject
 
 class GetPokemonsUseCase @Inject constructor(
     private val pokeApiService: PokeApiService
-) : BaseUseCase<Unit, BaseResponse<Pokemon>> {
+) : BaseUseCase<OffsetLimitRequest, BaseResponse<Pokemon>> {
     override fun invoke(
-        params: Unit,
+        params: OffsetLimitRequest,
         onSuccess: (BaseResponse<Pokemon>) -> Unit,
         onFailed: (Throwable) -> Unit
     ) {
-        pokeApiService.getPokemons().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                onSuccess(it)
-            }, {
-                onFailed(it)
-            })
-    }
-}
 
-class GetNextPagePokemonsUseCase @Inject constructor(
-    private val pokeApiService: PokeApiService
-) : BaseUseCase<String, BaseResponse<Pokemon>> {
-    override fun invoke(
-        params: String,
-        onSuccess: (BaseResponse<Pokemon>) -> Unit,
-        onFailed: (Throwable) -> Unit
-    ) {
-        pokeApiService.getPokemons(params).subscribeOn(Schedulers.io())
+        pokeApiService.getPokemons(params.offset).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                onSuccess(it)
-            }, {
+            .doOnSuccess { response ->
+                val pokemons: MutableList<Pokemon> = mutableListOf()
+                response.results.forEach { pokemon ->
+                    val infoPokemon = pokeApiService.getPokemon(pokemon.name)
+                    infoPokemon.doOnSuccess {
+                        pokemons.add(pokemon.copy(urlPhoto = it.sprites.backDefault))
+                    }
+                }
+                onSuccess(response.copy(results = pokemons))
+            }
+            .doOnError {
                 onFailed(it)
-            })
+            }
+
     }
 }
 
