@@ -2,26 +2,25 @@ package com.poke.bulbazavr.api.useCase
 
 import com.poke.bulbazavr.api.PokeApiService
 import com.poke.bulbazavr.api.data.responses.PokemonResponse
-import com.poke.bulbazavr.api.data.responses.SpriteResponse
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 
 class GetPokemonUseCase @Inject constructor(
     private val pokeApiService: PokeApiService
-) : BaseUseCase<PokemonResponse, SpriteResponse> {
+) : BaseUseCase<PokemonResponse, Single<PokemonResponse>> {
     override fun invoke(
         params: PokemonResponse,
-    ): SpriteResponse {
+    ): Single<PokemonResponse> {
         TODO()
-        /*pokeApiService.getPokemon(params.name).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        /*
+        return pokeApiService.getPokemon(params.name).subscribeOn(Schedulers.io())
             .doOnSuccess {
                 onSuccess(it)
             }
             .doOnError {
                 onFailed(it)
             }
-
          */
 
     }
