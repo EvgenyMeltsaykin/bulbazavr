@@ -1,6 +1,5 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
-import android.util.Log
 import com.poke.bulbazavr.api.data.request.OffsetLimitRequest
 import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.api.data.responses.PokemonResponse
@@ -33,7 +32,6 @@ class PokeListPresenter @Inject constructor(
     }
 
     private fun getNextPagePokemons() {
-        Log.d("POKEMON_LIST", "getNextPagePokemons")
         if (nextPageUrl != null && nextPageUrl!!.isEmpty()) viewState.showLoader()
         getPokemonsUseCase.invoke(
             params = OffsetLimitRequest(page = page),
