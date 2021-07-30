@@ -54,4 +54,16 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl {
     override fun setToolbarTitle(title: String) {
         binding.toolbar.title = title.replaceFirstChar { it.uppercaseChar() }
     }
+
+    override fun loaderVisible(isVisible: Boolean) {
+        with(binding) {
+            if (isVisible) {
+                pbLoader.visibility = View.VISIBLE
+                navHostFragment.visibility = View.INVISIBLE
+            } else {
+                pbLoader.visibility = View.GONE
+                navHostFragment.visibility = View.VISIBLE
+            }
+        }
+    }
 }

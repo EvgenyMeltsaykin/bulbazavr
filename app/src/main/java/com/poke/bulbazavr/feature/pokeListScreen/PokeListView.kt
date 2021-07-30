@@ -13,4 +13,11 @@ interface PokeListView: MvpView {
 
     @StateStrategyType(AddToEndStrategy::class)
     fun setPokemons(pokemons: List<PokemonDTO>)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun showLoader()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun hideLoader()
+
 }

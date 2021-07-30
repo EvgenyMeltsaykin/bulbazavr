@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class PokemonResponse(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String = "",
-    @SerializedName("sprites") val sprites: Sprite,
+    @SerializedName("sprites") val sprites: SpriteResponse,
 ) {
     fun toPokemonDTO(): PokemonDTO = PokemonDTO(
         name = this.name,
@@ -18,7 +18,7 @@ data class PokemonResponse(
 }
 
 @Serializable
-data class Sprite(
+data class SpriteResponse(
     @SerializedName("back_default") val backDefault: String? = "",
     @SerializedName("back_female") val backFemale: String? = "",
     @SerializedName("back_shiny") val backShiny: String? = "",

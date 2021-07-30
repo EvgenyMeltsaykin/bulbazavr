@@ -78,4 +78,12 @@ class PokeListFragment : BaseFragment(R.layout.fragment_poke_list), PokeListView
         pokemonsAdapter?.submitList(pokemons)
         pokemonsAdapter?.notifyDataSetChanged()
     }
+
+    override fun showLoader() {
+        loaderVisible(isVisible = true)
+    }
+
+    override fun hideLoader() {
+        loaderVisible(isVisible = false)
+    }
 }

@@ -6,6 +6,7 @@ import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.api.data.responses.PokemonResponse
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.data.PokemonDTO
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -20,10 +21,6 @@ class PokeListPresenter @Inject constructor(
     private var nextPageUrl: String? = ""
     private var isLoading = false
 
-    init {
-        loadNextPage()
-    }
-
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         loadNextPage()
@@ -37,25 +34,28 @@ class PokeListPresenter @Inject constructor(
 
     private fun getNextPagePokemons() {
         Log.d("POKEMON_LIST", "getNextPagePokemons")
+        if (nextPageUrl != null && nextPageUrl!!.isEmpty()) viewState.showLoader()
         getPokemonsUseCase.invoke(
             params = OffsetLimitRequest(page = page),
-            onSuccess = { response ->
-                Log.d("POKEMON_LIST", "response = $response")
-                onSuccessLoadPokemons(response)
-            },
-            onFailed = {
-                isLoading = false
-                Log.d("POKEMON_LIST", "Throwable $it")
-            }
-        )
+        ).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { response ->
+                    onSuccessLoadPokemons(response)
+                    isLoading = false
+                },
+                { throwable ->
+                    viewState.hideLoader()
+                    isLoading = false
+                }
+            )
     }
 
     private fun onSuccessLoadPokemons(response: BaseResponse<PokemonResponse>) {
-        isLoading = false
         nextPageUrl = response.next
         page++
         pokemons.addAll(response.results.map { it.toPokemonDTO() })
         viewState.setPokemons(pokemons)
+        viewState.hideLoader()
     }
 
     fun onPokemonClick(pokemon: PokemonDTO) {

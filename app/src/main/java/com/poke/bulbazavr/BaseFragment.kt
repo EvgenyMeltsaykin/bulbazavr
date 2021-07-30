@@ -21,4 +21,8 @@ open class BaseFragment(layoutId: Int) : MvpAppCompatFragment(layoutId) {
         (activity as BottomNavigation).bottomNavigationHide()
     }
 
+    protected fun loaderVisible(isVisible: Boolean) {
+        (activity as UIControl).loaderVisible(isVisible)
+    }
+
 }
