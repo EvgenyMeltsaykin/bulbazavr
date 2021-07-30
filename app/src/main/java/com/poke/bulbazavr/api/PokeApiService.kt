@@ -1,23 +1,27 @@
 package com.poke.bulbazavr.api
 
-import com.poke.bulbazavr.data.BaseResponse
-import com.poke.bulbazavr.data.Pokemon
+import com.poke.bulbazavr.api.data.responses.BaseResponse
+import com.poke.bulbazavr.api.data.responses.PokemonResponse
 import com.poke.bulbazavr.utils.Constans.BASE_POKE_API
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Url
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface PokeApiService {
     @GET("pokemon")
-    fun getPokemons(): Observable<BaseResponse<Pokemon>>
+    fun getPokemons(
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 20
+    ): Single<BaseResponse<PokemonResponse>>
 
-    @GET
-    fun getPokemons(@Url url: String): Observable<BaseResponse<Pokemon>>
+    @GET("pokemon/{name}")
+    fun getPokemon(@Path("name") name: String): Single<PokemonResponse>
 
     companion object Factory {
         fun create(): PokeApiService {

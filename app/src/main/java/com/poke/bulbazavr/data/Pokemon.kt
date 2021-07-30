@@ -1,18 +1,17 @@
 package com.poke.bulbazavr.data
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class BaseResponse<T>(
-    @SerialName("results") val results: ArrayList<T> = arrayListOf(),
-    @SerialName("count") val count: Int,
-    @SerialName("next") val next: String?,
-    @SerialName("previous") val previous: String?,
+data class PokemonDTO(
+    val name: String,
+    val sprites: SpriteDTO
 )
 
-@Serializable
-data class Pokemon(
-    @SerialName("name") val name: String,
-    @SerialName("url") val url: String = ""
+data class SpriteDTO(
+    val backDefault: String? = "",
+    val backFemale: String? = "",
+    val backShiny: String? = "",
+    val backShinyFemale: String? = "",
+    val frontDefault: String? = "",
+    val frontFemale: String? = "",
+    val frontShiny: String? = "",
+    val frontShinyFemale: String? = ""
 )

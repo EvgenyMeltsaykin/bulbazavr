@@ -13,6 +13,7 @@
             android:id="@+id/iv_pokemon_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:scaleType="centerCrop"
             android:src="@color/cardview_dark_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:textColor="@color/black"
-            android:text="222"
+            android:text="Pokemon name"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_pokemon_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_pokemon_avatar"

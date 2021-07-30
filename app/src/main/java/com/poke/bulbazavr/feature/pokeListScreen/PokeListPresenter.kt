@@ -1,49 +1,62 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
-import android.util.Log
-import com.poke.bulbazavr.api.PokeApiService
-import com.poke.bulbazavr.data.Pokemon
+import com.poke.bulbazavr.api.data.request.OffsetLimitRequest
+import com.poke.bulbazavr.api.data.responses.BaseResponse
+import com.poke.bulbazavr.api.data.responses.PokemonResponse
+import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
+import com.poke.bulbazavr.data.PokemonDTO
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 @InjectViewState
 class PokeListPresenter @Inject constructor(
-    private val pokeApiService: PokeApiService
+    private val getPokemonsUseCase: GetPokemonsUseCase
 ) : MvpPresenter<PokeListView>() {
 
-    private val pokemons: MutableList<Pokemon> = mutableListOf()
+    private val pokemons: MutableList<PokemonDTO> = mutableListOf()
+    private var page: Int = 0
     private var nextPageUrl: String? = ""
     private var isLoading = false
 
-    init {
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
         loadNextPage()
     }
 
     fun loadNextPage() {
         if (isLoading || nextPageUrl == null) return
         isLoading = true
-        val getPokemons =
-            if (nextPageUrl!!.isEmpty()) pokeApiService.getPokemons()
-            else pokeApiService.getPokemons(nextPageUrl!!)
-
-        getPokemons.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { response ->
-                    isLoading = false
-                    nextPageUrl = response.next
-                    pokemons.addAll(response.results)
-                    viewState.setPokemons(pokemons)
-                }, {
-                    isLoading = false
-                    Log.d("TAG", "Throwable $it")
-                })
+        getNextPagePokemons()
     }
 
-    fun onPokemonClick() {
-        viewState.navigateToDetailPokemon()
+    private fun getNextPagePokemons() {
+        if (nextPageUrl != null && nextPageUrl!!.isEmpty()) viewState.showLoader()
+        getPokemonsUseCase.invoke(
+            params = OffsetLimitRequest(page = page),
+        ).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { response ->
+                    onSuccessLoadPokemons(response)
+                    isLoading = false
+                },
+                { throwable ->
+                    viewState.hideLoader()
+                    isLoading = false
+                }
+            )
+    }
+
+    private fun onSuccessLoadPokemons(response: BaseResponse<PokemonResponse>) {
+        nextPageUrl = response.next
+        page++
+        pokemons.addAll(response.results.map { it.toPokemonDTO() })
+        viewState.setPokemons(pokemons)
+        viewState.hideLoader()
+    }
+
+    fun onPokemonClick(pokemon: PokemonDTO) {
+        viewState.navigateToDetailPokemon(pokemon.name)
     }
 }

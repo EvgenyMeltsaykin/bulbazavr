@@ -1,10 +1,11 @@
 package com.poke.bulbazavr.feature.pokeFavoritesScreen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,7 +18,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PokeFavoritesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PokeFavoritesFragment : Fragment() {
+class PokeFavoritesFragment : BaseFragment(R.layout.fragment_poke_favorites) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,6 +37,11 @@ class PokeFavoritesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_poke_favorites, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bottomNavigationShow()
     }
 
     companion object {
