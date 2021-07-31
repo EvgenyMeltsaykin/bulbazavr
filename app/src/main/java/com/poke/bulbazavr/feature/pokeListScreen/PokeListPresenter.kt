@@ -5,6 +5,7 @@ import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.api.data.responses.PokemonResponse
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.data.PokemonDTO
+import com.poke.bulbazavr.databinding.PokemonListItemBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -27,6 +28,7 @@ class PokeListPresenter @Inject constructor(
 
     fun loadNextPage() {
         if (isLoading || nextPageUrl == null) return
+        if (nextPageUrl!!.isNotEmpty()) viewState.showRecyclerViewLoader()
         isLoading = true
         getNextPagePokemons()
     }
@@ -39,10 +41,12 @@ class PokeListPresenter @Inject constructor(
             .subscribe(
                 { response ->
                     onSuccessLoadPokemons(response)
+                    viewState.hideRecyclerViewLoader()
                     isLoading = false
                 },
                 { throwable ->
                     viewState.hideLoader()
+                    viewState.hideRecyclerViewLoader()
                     isLoading = false
                 }
             )
@@ -56,7 +60,7 @@ class PokeListPresenter @Inject constructor(
         viewState.hideLoader()
     }
 
-    fun onPokemonClick(pokemon: PokemonDTO) {
-        viewState.navigateToDetailPokemon(pokemon.name)
+    fun onPokemonClick(pokemon: PokemonDTO, rvItemBinding: PokemonListItemBinding) {
+        viewState.navigateToDetailPokemon(pokemon.name, rvItemBinding)
     }
 }

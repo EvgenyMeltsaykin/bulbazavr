@@ -10,3 +10,9 @@ data class BaseResponse<T>(
     @SerializedName("next") val next: String?,
     @SerializedName("previous") val previous: String?,
 )
+
+@Serializable
+data class NamedAPIResourceResponse(
+    @SerializedName("name") val name: String = "",
+    @SerializedName("url") val url: String = "",
+)

@@ -3,6 +3,7 @@ package com.poke.bulbazavr.di
 import com.poke.bulbazavr.api.PokeApiService
 import com.poke.bulbazavr.api.useCase.GetPokemonUseCase
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
+import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import dagger.Component
 import dagger.Module
@@ -13,10 +14,18 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
     fun inject(pokeListFragment: PokeListFragment)
+    fun inject(pokeDetailFragment: PokeDetailFragment)
 }
 
 @Module(includes = [NetworkModule::class, AppBindModule::class])
-class AppModule
+class AppModule {
+
+    /*
+    @Provides
+    fun provideAnimationManagerImpl() : AnimationManagerImpl = AnimationManagerImpl()
+
+     */
+}
 
 @Module
 class NetworkModule {
@@ -28,8 +37,7 @@ class NetworkModule {
 
     @Provides
     fun getPokemonsUseCase(
-        pokeApiService: PokeApiService,
-        getPokemonUseCase: GetPokemonUseCase
+        pokeApiService: PokeApiService
     ): GetPokemonsUseCase = GetPokemonsUseCase(pokeApiService)
 
 
@@ -41,8 +49,14 @@ class NetworkModule {
 }
 
 @Module
-interface AppBindModule{
+interface AppBindModule {
 
+    /*
+    @Binds
+    @Singleton
+    fun bindAnimationManager(animationManagerImpl: AnimationManagerImpl):AnimationManager
+
+     */
 }
 
 
