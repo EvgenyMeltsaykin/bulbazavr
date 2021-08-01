@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_item_background"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_stat_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Имя статы"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_base_stat_static"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/base_stat"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_stat_name" />
+
+        <TextView
+            android:id="@+id/tv_base_stat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_base_stat_static"
+            app:layout_constraintStart_toEndOf="@+id/tv_base_stat_static"
+            app:layout_constraintTop_toTopOf="@+id/tv_base_stat_static" />
+
+        <TextView
+            android:id="@+id/tv_effort_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/effort"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_base_stat_static" />
+
+        <TextView
+            android:id="@+id/tv_effort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_effort_static"
+            app:layout_constraintStart_toEndOf="@+id/tv_effort_static"
+            app:layout_constraintTop_toTopOf="@+id/tv_effort_static" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

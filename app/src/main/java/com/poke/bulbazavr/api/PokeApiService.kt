@@ -1,5 +1,6 @@
 package com.poke.bulbazavr.api
 
+import com.poke.bulbazavr.api.data.responses.AbilityInfoResponse
 import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.api.data.responses.PokemonResponse
 import com.poke.bulbazavr.utils.Constans.BASE_POKE_API
@@ -11,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 
 interface PokeApiService {
@@ -22,6 +24,9 @@ interface PokeApiService {
 
     @GET("pokemon/{name}")
     fun getPokemon(@Path("name") name: String): Single<PokemonResponse>
+
+    @GET
+    fun getAbilityInfo(@Url url: String): Single<AbilityInfoResponse>
 
     companion object Factory {
         fun create(): PokeApiService {

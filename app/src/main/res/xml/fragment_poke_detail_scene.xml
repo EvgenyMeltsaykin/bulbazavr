@@ -7,6 +7,50 @@
         app:constraintSetStart="@+id/start"
         app:defaultDuration="2000" />
 
+    <Transition
+        app:constraintSetEnd="@id/image_top"
+        app:constraintSetStart="@+id/end">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/nsv_main"
+            app:touchAnchorSide="top" />
+    </Transition>
+
+    <ConstraintSet
+        android:id="@+id/image_top"
+        app:deriveConstraintsFrom="@+id/end">
+        <Constraint
+            android:id="@+id/nsv_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <Constraint
+            android:id="@+id/iv_pokemon_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/tv_pokemon_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_pokemon_avatar"
+            app:layout_constraintStart_toEndOf="@+id/iv_pokemon_avatar"
+            app:layout_constraintTop_toTopOf="@+id/iv_pokemon_avatar" />
+
+        <Constraint
+            android:id="@+id/rv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_pokemon_avatar" />
+    </ConstraintSet>
+
+
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/iv_pokemon_avatar"
@@ -23,11 +67,26 @@
             android:layout_height="wrap_content"
             android:alpha="0"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/rv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_name" />
     </ConstraintSet>
 
     <ConstraintSet
         android:id="@+id/end"
         app:deriveConstraintsFrom="@+id/start">
+        <Constraint
+            android:id="@+id/nsv_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <Constraint
             android:id="@id/iv_pokemon_avatar"
             android:layout_height="200dp"
@@ -43,6 +102,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_pokemon_avatar" />
+
+        <Constraint
+            android:id="@+id/rv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_name" />
     </ConstraintSet>
 
 

@@ -1,8 +1,14 @@
 package com.poke.bulbazavr.di
 
+import android.content.Context
+import androidx.annotation.NonNull
+import androidx.room.Room
+import com.google.gson.Gson
 import com.poke.bulbazavr.api.PokeApiService
 import com.poke.bulbazavr.api.useCase.GetPokemonUseCase
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
+import com.poke.bulbazavr.database.FavoritePokemonDatabase
+import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import dagger.Component
@@ -17,14 +23,45 @@ interface AppComponent {
     fun inject(pokeDetailFragment: PokeDetailFragment)
 }
 
-@Module(includes = [NetworkModule::class, AppBindModule::class])
-class AppModule {
+@Module(includes = [NetworkModule::class, AppBindModule::class, DatabaseModule::class, RoomModule::class])
+class AppModule(@NonNull context: Context) {
+    private val appContext = context
 
+    @Provides
+    @Singleton
+    @NonNull
+    fun provideContext(): Context = this.appContext
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = Gson()
     /*
     @Provides
     fun provideAnimationManagerImpl() : AnimationManagerImpl = AnimationManagerImpl()
 
      */
+}
+
+
+@Module
+class DatabaseModule {
+    @Provides
+    @Singleton
+    fun provideFavoritePokeRepository(roomDatabase: FavoritePokemonDatabase): FavoritePokemonRepository =
+        FavoritePokemonRepository(roomDatabase.favoritePokemonDao())
+}
+
+
+@Module
+class RoomModule {
+
+    @Provides
+    @Singleton
+    fun provideDatabase(appContext: Context): FavoritePokemonDatabase = Room.databaseBuilder(
+        appContext,
+        FavoritePokemonDatabase::class.java,
+        "favorite_pokemon_room_database"
+    ).build()
 }
 
 @Module
