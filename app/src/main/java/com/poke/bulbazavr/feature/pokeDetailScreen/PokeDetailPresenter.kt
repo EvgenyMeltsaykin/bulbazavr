@@ -69,6 +69,4 @@ class PokeDetailPresenter @Inject constructor(
         visiblePokemonInfo.abilities.visible = !visiblePokemonInfo.abilities.visible
         viewState.setupInfoPokemon(visiblePokemonInfo)
     }
-
-
 }

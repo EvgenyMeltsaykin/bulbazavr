@@ -8,4 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface PokeDetailView : MvpView {
     @StateStrategyType(AddToEndStrategy::class)
     fun setupInfoPokemon(pokemon: PokemonDTO)
+
 }
