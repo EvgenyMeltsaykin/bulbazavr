@@ -1,5 +1,6 @@
 package com.poke.bulbazavr.feature.pokeDetailScreen.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
@@ -11,6 +12,7 @@ import com.poke.bulbazavr.utils.Constans.END_HEADER_ID
 import com.poke.bulbazavr.utils.Constans.STAT_ID
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
+import java.util.*
 
 data class HeaderDelegateItem(
     private val text: String,
@@ -22,6 +24,7 @@ data class HeaderDelegateItem(
 
 class HeaderDelegateAdapter(private val onClick: (id: Int) -> Unit) :
     DelegateAdapter<HeaderDelegateItem, HeaderDelegateAdapter.HeaderViewHolder>(HeaderDelegateItem::class.java) {
+    private var clickTime: Long = 0
     inner class HeaderViewHolder(private val binding: HeaderTextItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HeaderDelegateItem, onClick: (id: Int) -> Unit) {
@@ -41,11 +44,17 @@ class HeaderDelegateAdapter(private val onClick: (id: Int) -> Unit) :
                     )
                 }
                 tvTitle.text = item.content()
-                executePendingBindings()
                 animationAppearanceSmooth(itemView)
                 root.setOnClickListener {
-                    onClick.invoke(item.id())
+                    val nowTime = Calendar.getInstance().timeInMillis
+                    if (nowTime - clickTime > 20) {
+                        clickTime = nowTime
+                        Log.d("pokemon info", "click")
+                        onClick.invoke(item.id())
+                    }
+
                 }
+                executePendingBindings()
             }
         }
     }

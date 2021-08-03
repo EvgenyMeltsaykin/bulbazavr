@@ -1,14 +1,13 @@
 package com.poke.bulbazavr.feature.pokeDetailScreen
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.transition.TransitionInflater
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.transition.MaterialContainerTransform
 import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.OnBackPressListener
 import com.poke.bulbazavr.R
@@ -48,8 +47,9 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition =
-            TransitionInflater.from(requireContext()).inflateTransition(R.transition.shared_image)
+        val transform = MaterialContainerTransform()
+        transform.scrimColor = Color.TRANSPARENT
+        sharedElementEnterTransition = transform
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +67,7 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
         bottomNavigationHide()
     }
 
+    private var notClicked = true
     private fun setupAdapter() {
         pokemonInfoAdapter = CompositeAdapter.Builder()
             .add(HeaderDelegateAdapter(onClick = { headerType ->
@@ -74,7 +75,6 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
                     STAT_ID -> presenter.visibleActionStats()
                     ABILITY_ID -> presenter.visibleActionAbilities()
                 }
-
             }))
             .add(StatDelegateAdapter())
             .add(AbilityDelegateAdapter())
@@ -92,15 +92,12 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
                 .requestListener(
                     onLoadFailed = { _, _, _, _ ->
                         startPostponedEnterTransition()
-                        binding.mlMain.transitionToEnd()
                     },
                     onResourceReady = { _, _, _, _, _ ->
                         startPostponedEnterTransition()
-                        binding.mlMain.transitionToEnd()
                     }
                 )
                 .into(ivPokemonAvatar)
-
             setupInfoInRecyclerView(pokemon)
         }
     }
@@ -136,11 +133,7 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
     }
 
     override fun onBackPressed(callback: () -> Unit) {
-        binding.mlMain.transitionToStart()
-        Handler(Looper.getMainLooper()).postDelayed(
-            { callback.invoke() },
-            binding.mlMain.transitionTimeMs
-        )
+        callback.invoke()
     }
 
 }

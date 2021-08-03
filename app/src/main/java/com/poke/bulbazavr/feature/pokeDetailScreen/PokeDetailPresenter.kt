@@ -38,7 +38,6 @@ class PokeDetailPresenter @Inject constructor(
 
                 }
             )
-
     }
 
     private fun hideAllInfo() {
@@ -69,4 +68,5 @@ class PokeDetailPresenter @Inject constructor(
         visiblePokemonInfo.abilities.visible = !visiblePokemonInfo.abilities.visible
         viewState.setupInfoPokemon(visiblePokemonInfo)
     }
+
 }

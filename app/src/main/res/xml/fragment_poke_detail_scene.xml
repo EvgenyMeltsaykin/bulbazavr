@@ -3,31 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
+        android:id="@+id/transition_start"
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
-        app:defaultDuration="2000" />
-
-    <!--
-    <Transition
-        app:constraintSetEnd="@id/image_top"
-        app:constraintSetStart="@+id/end">
+        app:defaultDuration="1000">
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:dragScale="1"
-            app:moveWhenScrollAtTop="true"
-            app:onTouchUp="stop"
             app:touchAnchorId="@id/rv_info"
-            app:touchAnchorSide="top" />
+            app:onTouchUp="stop"
+            app:touchAnchorSide="top"
+            app:touchRegionId="@id/rv_info" />
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:scaleX="0.75"
+                android:scaleY="0.75"
+                app:framePosition="100"
+                app:motionTarget="@id/tv_pokemon_name"></KeyAttribute>
+        </KeyFrameSet>
     </Transition>
 
-    <ConstraintSet
-        android:id="@+id/image_top"
-        app:deriveConstraintsFrom="@id/end">
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/iv_pokemon_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,73 +44,18 @@
             app:layout_constraintTop_toTopOf="@+id/iv_pokemon_avatar" />
 
         <Constraint
-            android:id="@+id/rv_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@id/rv_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_pokemon_avatar" />
-    </ConstraintSet>
-
- -->
-    <ConstraintSet android:id="@+id/start">
-        <Constraint
-            android:id="@+id/iv_pokemon_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/tv_pokemon_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            app:layout_constraintBottom_toBottomOf="parent" />
-        <Constraint
-            android:id="@+id/rv_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:alpha="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_name" />
-    </ConstraintSet>
-
-    <ConstraintSet android:id="@+id/end">
-        <Constraint
-            android:id="@id/iv_pokemon_avatar"
-            android:layout_height="200dp"
-            android:alpha="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/tv_pokemon_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_pokemon_avatar" />
-        <Constraint
-            android:layout_height="0dp"
-            android:id="@+id/rv_info"
-            android:layout_width="match_parent"
-            android:alpha="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_pokemon_name" />
+
+
     </ConstraintSet>
 
 </MotionScene>
