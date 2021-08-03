@@ -67,10 +67,16 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
         bottomNavigationHide()
     }
 
-    private var notClicked = true
     private fun setupAdapter() {
         pokemonInfoAdapter = CompositeAdapter.Builder()
             .add(HeaderDelegateAdapter(onClick = { headerType ->
+                with(binding.mlMain) {
+                    if (progress > 0.5) {
+                        transitionToEnd()
+                    } else {
+                        transitionToStart()
+                    }
+                }
                 when (headerType) {
                     STAT_ID -> presenter.visibleActionStats()
                     ABILITY_ID -> presenter.visibleActionAbilities()
