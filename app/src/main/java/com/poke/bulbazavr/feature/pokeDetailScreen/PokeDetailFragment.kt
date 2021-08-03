@@ -16,6 +16,7 @@ import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.databinding.FragmentPokeDetailBinding
 import com.poke.bulbazavr.feature.pokeDetailScreen.adapters.*
 import com.poke.bulbazavr.utils.Constans.ABILITY_ID
+import com.poke.bulbazavr.utils.Constans.BEGIN_HEADER_ID
 import com.poke.bulbazavr.utils.Constans.END_HEADER_ID
 import com.poke.bulbazavr.utils.Constans.STAT_ID
 import com.poke.bulbazavr.utils.delegate.adapter.CompositeAdapter
@@ -66,20 +67,21 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
         setToolbarTitle(args.pokemonName)
         bottomNavigationHide()
     }
-
     private fun setupAdapter() {
         pokemonInfoAdapter = CompositeAdapter.Builder()
-            .add(HeaderDelegateAdapter(onClick = { headerType ->
-                with(binding.mlMain) {
-                    if (progress > 0.5) {
-                        transitionToEnd()
-                    } else {
-                        transitionToStart()
+            .add(HeaderDelegateAdapter())
+            .add(
+                HeaderInfoDelegateAdapter(onClick = { headerType ->
+                    with(binding.mlMain) {
+                        if (progress > 0.5) {
+                            transitionToEnd()
+                        } else {
+                            transitionToStart()
+                        }
                     }
-                }
-                when (headerType) {
-                    STAT_ID -> presenter.visibleActionStats()
-                    ABILITY_ID -> presenter.visibleActionAbilities()
+                    when (headerType) {
+                        STAT_ID -> presenter.visibleActionStats()
+                        ABILITY_ID -> presenter.visibleActionAbilities()
                 }
             }))
             .add(StatDelegateAdapter())
@@ -111,7 +113,8 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
     private fun setupInfoInRecyclerView(pokemon: PokemonDTO) {
         val items: MutableList<DelegateAdapterItem> = mutableListOf()
         with(items) {
-            add(HeaderDelegateItem(getString(R.string.characteristics), STAT_ID))
+            add(HeaderDelegateItem(BEGIN_HEADER_ID))
+            add(HeaderInfoDelegateItem(getString(R.string.characteristics), STAT_ID))
             pokemon.stats.info?.let { stats ->
                 stats.forEach { stat ->
                     val statInfo =
@@ -119,7 +122,7 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
                     add(StatDelegateItem(statInfo))
                 }
             }
-            add(HeaderDelegateItem(getString(R.string.abilities), ABILITY_ID))
+            add(HeaderInfoDelegateItem(getString(R.string.abilities), ABILITY_ID))
             pokemon.abilities.info?.let { abilities ->
                 abilities.forEach { ability ->
                     val abilityInfo =
@@ -127,7 +130,7 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
                     add(AbilityDelegateItem(abilityInfo))
                 }
             }
-            add(HeaderDelegateItem("", END_HEADER_ID))
+            add(HeaderDelegateItem(END_HEADER_ID))
         }
 
         pokemonInfoAdapter?.submitList(items)

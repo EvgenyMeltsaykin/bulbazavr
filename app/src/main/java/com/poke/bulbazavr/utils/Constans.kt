@@ -7,5 +7,6 @@ object Constans {
 
     const val STAT_ID = 1
     const val ABILITY_ID = 2
-    const val END_HEADER_ID = 1000
+    const val END_HEADER_ID = 1001
+    const val BEGIN_HEADER_ID = 1000
 }
