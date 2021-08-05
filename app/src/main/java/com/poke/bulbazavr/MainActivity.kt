@@ -1,8 +1,10 @@
 package com.poke.bulbazavr
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -13,11 +15,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.poke.bulbazavr.databinding.ActivityMainBinding
 import moxy.MvpAppCompatActivity
 
-class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl {
+class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, FragmentInfoForActivity {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private var currentOpenedFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +48,7 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl {
     }
 
     override fun bottomNavigationHide() {
-        binding.btvBottomMenu.visibility = View.INVISIBLE
+        binding.btvBottomMenu.visibility = View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -65,5 +69,23 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl {
                 navHostFragment.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if (currentOpenedFragment != null && currentOpenedFragment is OnBackPressListener) {
+            (currentOpenedFragment as OnBackPressListener).onBackPressed {
+                currentOpenedFragment = null
+                super.onBackPressed()
+            }
+        } else {
+            Log.d("POKE INFO", "else")
+            super.onBackPressed()
+        }
+
+
+    }
+
+    override fun setCurrentVisibleFragment(fragment: Fragment) {
+        currentOpenedFragment = fragment
     }
 }

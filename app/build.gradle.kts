@@ -12,13 +12,23 @@ android {
     buildToolsVersion ("30.0.3")
 
     defaultConfig {
-        applicationId ("com.poke.bulbazavr")
-        minSdkVersion (24)
-        targetSdkVersion (30)
-        versionCode (1)
-        versionName ("1.0")
+        applicationId("com.poke.bulbazavr")
+        minSdkVersion(24)
+        targetSdkVersion(30)
+        versionCode(1)
+        versionName("1.0")
 
-        testInstrumentationRunner ("androidx.test.runner.AndroidJUnitRunner")
+        testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -73,13 +83,19 @@ dependencies {
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
 
     implementation ("com.google.dagger:dagger:2.38")
-    implementation ("com.google.dagger:dagger-android-support:2.38")
-    kapt ("com.google.dagger:dagger-compiler:2.38")
+    implementation("com.google.dagger:dagger-android-support:2.38")
+    kapt("com.google.dagger:dagger-compiler:2.38")
 
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation ("com.squareup.okio:okio:2.8.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okio:okio:2.8.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+
+    kapt("androidx.room:room-compiler:2.3.0")
+    kapt("androidx.room:room-runtime:2.3.0")
+    implementation("androidx.room:room-rxjava3:2.3.0")
+
 }
