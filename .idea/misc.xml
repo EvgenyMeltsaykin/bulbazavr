@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_detail.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_favorites.xml" value="0.2916666666666667" />
+        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/header_text_item.xml" value="0.36666666666666664" />
       </map>
     </option>

@@ -10,6 +10,7 @@ import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.database.FavoritePokemonDatabase
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
+import com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import dagger.Component
 import dagger.Module
@@ -21,6 +22,7 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(pokeListFragment: PokeListFragment)
     fun inject(pokeDetailFragment: PokeDetailFragment)
+    fun inject(pokeFavoritesFragment: PokeFavoritesFragment)
 }
 
 @Module(includes = [NetworkModule::class, AppBindModule::class, DatabaseModule::class, RoomModule::class])

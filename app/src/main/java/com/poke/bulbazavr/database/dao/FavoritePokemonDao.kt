@@ -17,7 +17,7 @@ interface FavoritePokemonDao {
     @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME} WHERE :pokemonName like name")
     fun loadPokemon(pokemonName: String): Single<PokemonEntity>
 
-    @Insert(entity = PokemonEntity::class, onConflict = OnConflictStrategy.ABORT)
+    @Insert(entity = PokemonEntity::class, onConflict = OnConflictStrategy.IGNORE)
     fun addPokemon(pokemonEntity: PokemonEntity): Completable
 
     @Query("DELETE FROM ${PokemonEntity.TABLE_NAME} WHERE :pokemonName like name")

@@ -17,12 +17,10 @@ class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
     override fun getAllFavoritePokemon(): Single<List<PokemonEntity>> =
         pokemonDao.loadAllFavoritePokemon().subscribeOn(Schedulers.io())
 
-    override fun insert(pokemon: PokemonDTO): Completable {
-        return pokemonDao.addPokemon(
-            pokemonEntity = PokemonEntity(
-                name = pokemon.name,
-                url = pokemon.sprites.backDefault ?: ""
-            )
+    override fun insert(pokemon: PokemonDTO): Completable = pokemonDao.addPokemon(
+        pokemonEntity = PokemonEntity(
+            name = pokemon.name,
+            url = pokemon.sprites.frontDefault ?: ""
         )
-    }
+    ).observeOn(Schedulers.io())
 }

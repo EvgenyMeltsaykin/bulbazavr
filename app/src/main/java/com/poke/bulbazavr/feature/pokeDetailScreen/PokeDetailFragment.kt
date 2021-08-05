@@ -60,6 +60,10 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
         setupUI()
         setupAdapter()
         binding.ivPokemonAvatar.transitionName = args.pokemonName
+        binding.ivLove.setOnClickListener {
+            presenter.onLoveClick()
+        }
+
         presenter.init(args.pokemonName)
     }
 
