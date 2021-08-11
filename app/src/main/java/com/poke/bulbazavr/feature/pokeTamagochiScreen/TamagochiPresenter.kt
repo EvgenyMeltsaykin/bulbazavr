@@ -39,4 +39,8 @@ class TamagochiPresenter @Inject constructor(
             loadInformation(pokemonName)
         }
     }
+
+    fun onFullInfoClick() {
+        viewState.navigateToFullInfo(pokemonName)
+    }
 }

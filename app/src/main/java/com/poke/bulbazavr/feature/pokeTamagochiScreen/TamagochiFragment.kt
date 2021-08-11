@@ -3,6 +3,7 @@ package com.poke.bulbazavr.feature.pokeTamagochiScreen
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.poke.bulbazavr.BaseFragment
@@ -51,6 +52,10 @@ class TamagochiFragment : BaseFragment(R.layout.fragment_tamagochi), TamagochiVi
             btnPlay.setOnClickListener {
                 presenter.onPlayClick()
             }
+
+            btnFullInfo.setOnClickListener {
+                presenter.onFullInfoClick()
+            }
         }
     }
 
@@ -68,5 +73,12 @@ class TamagochiFragment : BaseFragment(R.layout.fragment_tamagochi), TamagochiVi
             tvFunProgress.text = getString(R.string.progress, favoritePokemon.funIndicator)
             tvHpProgress.text = getString(R.string.progress, favoritePokemon.hpIndicator)
         }
+    }
+
+    override fun navigateToFullInfo(pokemonName: String) {
+        loaderVisible(true)
+        val action =
+            TamagochiFragmentDirections.actionTamagochiFragmentToPokeDetailFragment(pokemonName)
+        binding.root.findNavController().navigate(action)
     }
 }

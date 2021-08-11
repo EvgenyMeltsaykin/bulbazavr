@@ -104,9 +104,11 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
                 .requestListener(
                     onLoadFailed = { _, _, _, _ ->
                         startPostponedEnterTransition()
+                        loaderVisible(false)
                     },
                     onResourceReady = { _, _, _, _, _ ->
                         startPostponedEnterTransition()
+                        loaderVisible(false)
                     }
                 )
                 .into(ivPokemonAvatar)

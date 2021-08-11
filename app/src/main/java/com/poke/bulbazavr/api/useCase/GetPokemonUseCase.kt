@@ -20,7 +20,7 @@ class GetPokemonUseCase @Inject constructor(
                 response.copy(
                     abilities = Observable.fromIterable(response.abilities)
                         .flatMap { ability ->
-                            pokeApiService.getAbilityInfo(ability.ability?.url ?: "").map {
+                            pokeApiService.getAbilityInfo(ability.ability.url).map {
                                 ability.copy(abilityInfo = it)
                             }.toObservable()
                         }
