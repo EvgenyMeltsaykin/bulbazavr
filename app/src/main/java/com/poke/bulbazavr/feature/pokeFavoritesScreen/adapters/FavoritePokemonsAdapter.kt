@@ -15,7 +15,7 @@ import com.poke.bulbazavr.databinding.PokemonListItemBinding
 import com.poke.bulbazavr.utils.EqualsDiffCallback
 
 class FavoritePokemonsAdapter(
-    private val onPokemonClick: (pokemon: FavoritePokemonDTO, rvItemBinding: PokemonListItemBinding) -> Unit
+    private val onPokemonClick: (pokemon: FavoritePokemonDTO) -> Unit
 ) : ListAdapter<FavoritePokemonDTO, FavoritePokemonsAdapter.FavoritePokemonViewHolder>(
     EqualsDiffCallback { a, b -> a == b }) {
 
@@ -23,14 +23,14 @@ class FavoritePokemonsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             pokemon: FavoritePokemonDTO,
-            onPokemonClick: (pokemon: FavoritePokemonDTO, rvItemBinding: PokemonListItemBinding) -> Unit
+            onPokemonClick: (pokemon: FavoritePokemonDTO) -> Unit
         ) {
             with(binding) {
                 Glide.with(itemView).load(pokemon.url).into(ivPokemonAvatar)
                 tvName.text = pokemon.name.replaceFirstChar { it.uppercaseChar() }
                 ivPokemonAvatar.transitionName = pokemon.name
                 root.setOnClickListener {
-                    onPokemonClick.invoke(pokemon, binding)
+                    onPokemonClick.invoke(pokemon)
                 }
                 setAnimation(itemView)
             }

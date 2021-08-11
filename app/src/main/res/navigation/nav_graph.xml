@@ -27,5 +27,21 @@
         android:id="@+id/pokeFavoritesFragment"
         android:name="com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment"
         android:label="Любимые покемоны"
-        tools:layout="@layout/fragment_poke_favorites" />
+        tools:layout="@layout/fragment_poke_favorites">
+        <action
+            android:id="@+id/action_pokeFavoritesFragment_to_tamagochiFragment"
+            app:destination="@id/tamagochiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tamagochiFragment"
+        android:name="com.poke.bulbazavr.feature.pokeTamagochiScreen.TamagochiFragment"
+        android:label="fragment_tamagochi"
+        tools:layout="@layout/fragment_tamagochi">
+        <argument
+            android:name="pokemonName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_tamagochiFragment_to_pokeDetailFragment"
+            app:destination="@id/pokeDetailFragment" />
+    </fragment>
 </navigation>

@@ -1,5 +1,6 @@
 package com.poke.bulbazavr.feature.pokeFavoritesScreen
 
+import com.poke.bulbazavr.data.FavoritePokemonDTO
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
@@ -19,5 +20,9 @@ class PokeFavoritesPresenter @Inject constructor(
 
                 }
             )
+    }
+
+    fun onPokemonClick(pokemon: FavoritePokemonDTO) {
+        viewState.navigateToTamagochi(pokemon)
     }
 }

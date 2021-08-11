@@ -3,6 +3,7 @@ package com.poke.bulbazavr.feature.pokeFavoritesScreen
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.findNavController
 import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.appComponent
@@ -35,21 +36,33 @@ class PokeFavoritesFragment : BaseFragment(R.layout.fragment_poke_favorites), Po
         binding = FragmentPokeFavoritesBinding.bind(view)
         bottomNavigationShow()
         setupAdapter()
+        loaderVisible(false)
     }
 
     private fun setupAdapter() {
         with(binding) {
             pokemonsAdapter = FavoritePokemonsAdapter(
-                onPokemonClick = { pokemon, rvItemBinding ->
-                    //presenter.onPokemonClick(pokemon, rvItemBinding)
+                onPokemonClick = { pokemon ->
+                    presenter.onPokemonClick(pokemon)
                 }
             )
             rvPokemons.adapter = pokemonsAdapter
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        pokemonsAdapter = null
+    }
+
     override fun showFavoritePokemons(pokemons: List<FavoritePokemonDTO>) {
         pokemonsAdapter?.submitList(pokemons)
+    }
+
+    override fun navigateToTamagochi(pokemon: FavoritePokemonDTO) {
+        val action =
+            PokeFavoritesFragmentDirections.actionPokeFavoritesFragmentToTamagochiFragment(pokemon.name)
+        binding.root.findNavController().navigate(action)
     }
 
 }
