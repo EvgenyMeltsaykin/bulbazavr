@@ -22,4 +22,26 @@ interface FavoritePokemonDao {
 
     @Query("DELETE FROM ${PokemonEntity.TABLE_NAME} WHERE :pokemonName like name")
     fun deletePokemon(pokemonName: String): Completable
+
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET hpIndicator = :hpIndicator, foodIndicator = :foodIndicator,funIndicator = :funIndicator WHERE :pokemonName like name")
+    fun updatePokemon(
+        pokemonName: String,
+        hpIndicator: Int,
+        foodIndicator: Int,
+        funIndicator: Int
+    ): Completable
+
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1  WHERE :pokemonName like name AND foodIndicator <> 100")
+    fun plusFoodIndicator(pokemonName: String): Completable
+
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 WHERE :pokemonName like name AND funIndicator <> 100")
+    fun plusFunIndicator(pokemonName: String): Completable
+
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator - 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1  WHERE :pokemonName like name AND foodIndicator <> 100")
+    fun minusFoodIndicator(pokemonName: String): Completable
+
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator - 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 WHERE :pokemonName like name AND funIndicator <> 100")
+    fun minusFunIndicator(pokemonName: String): Completable
+
+
 }

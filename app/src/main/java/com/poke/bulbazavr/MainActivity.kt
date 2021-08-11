@@ -1,7 +1,6 @@
 package com.poke.bulbazavr
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -78,11 +77,8 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, Fragme
                 super.onBackPressed()
             }
         } else {
-            Log.d("POKE INFO", "else")
             super.onBackPressed()
         }
-
-
     }
 
     override fun setCurrentVisibleFragment(fragment: Fragment) {

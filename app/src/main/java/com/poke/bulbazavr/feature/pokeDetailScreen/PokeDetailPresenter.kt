@@ -5,7 +5,6 @@ import com.poke.bulbazavr.api.useCase.GetPokemonUseCase
 import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -71,7 +70,7 @@ class PokeDetailPresenter @Inject constructor(
     }
 
     fun onLoveClick() {
-        pokemonRepository.insert(originalPokemonInfo).subscribeOn(Schedulers.io()).subscribe()
+        pokemonRepository.insert(originalPokemonInfo).subscribe()
     }
 
 }

@@ -10,6 +10,7 @@ buildscript {
         classpath(Kotlin.gradlePlugin)
         classpath(Navigation.safeArgs)
         classpath(Kotlin.serialization)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
     }
 }
 
