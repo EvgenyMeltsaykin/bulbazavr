@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_detail.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/drawable/ic_gray_heart.xml" value="0.3828125" />
+        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/drawable/ic_love_poke.xml" value="0.3828125" />
+        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/drawable/ic_read_heart.xml" value="0.3828125" />
+        <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_detail.xml" value="0.33" />
         <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_favorites.xml" value="0.2916666666666667" />
         <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_poke_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HomePC/AndroidStudioProjects/Bulbazavr/app/src/main/res/layout/fragment_tamagochi.xml" value="0.36666666666666664" />

@@ -33,6 +33,11 @@ class TamagochiFragment : BaseFragment(R.layout.fragment_tamagochi), TamagochiVi
         super.onAttach(context)
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.updateInfo()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTamagochiBinding.bind(view)
@@ -80,5 +85,9 @@ class TamagochiFragment : BaseFragment(R.layout.fragment_tamagochi), TamagochiVi
         val action =
             TamagochiFragmentDirections.actionTamagochiFragmentToPokeDetailFragment(pokemonName)
         binding.root.findNavController().navigate(action)
+    }
+
+    override fun navigateToFavoriteList() {
+        binding.root.findNavController().popBackStack()
     }
 }
