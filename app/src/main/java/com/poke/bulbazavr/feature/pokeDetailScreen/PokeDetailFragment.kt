@@ -60,8 +60,8 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
         setupUI()
         setupAdapter()
         binding.ivPokemonAvatar.transitionName = args.pokemonName
-        binding.ivLove.setOnClickListener {
-            presenter.onLoveClick()
+        binding.ivFavorite.setOnClickListener {
+            presenter.onFavoriteClick()
         }
 
         presenter.init(args.pokemonName)
@@ -114,6 +114,14 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
                 .into(ivPokemonAvatar)
             setupInfoInRecyclerView(pokemon)
         }
+    }
+
+    override fun isFavoritePokemon() {
+        Glide.with(requireContext()).load(R.drawable.ic_red_heart).into(binding.ivFavorite)
+    }
+
+    override fun isNotFavoritePokemon() {
+        Glide.with(requireContext()).load(R.drawable.ic_gray_heart).into(binding.ivFavorite)
     }
 
     private fun setupInfoInRecyclerView(pokemon: PokemonDTO) {

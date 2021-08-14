@@ -28,7 +28,11 @@ class PokeFavoritesFragment : BaseFragment(R.layout.fragment_poke_favorites), Po
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
         super.onAttach(context)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.loadInformation()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

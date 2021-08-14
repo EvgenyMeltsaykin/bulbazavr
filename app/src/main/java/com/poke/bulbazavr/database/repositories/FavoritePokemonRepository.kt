@@ -15,6 +15,7 @@ interface FavoritePokemonRepositoryDao {
     fun update(favoritePokemonDTO: FavoritePokemonDTO): Completable
     fun plusFoodIndicator(pokemonName: String): Completable
     fun plusFunIndicator(pokemonName: String): Completable
+    fun delete(pokemonName: String): Completable
 }
 
 class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
@@ -45,4 +46,7 @@ class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
 
     override fun plusFunIndicator(pokemonName: String): Completable =
         pokemonDao.plusFunIndicator(pokemonName).subscribeOn(Schedulers.io())
+
+    override fun delete(pokemonName: String): Completable =
+        pokemonDao.deletePokemon(pokemonName).subscribeOn(Schedulers.io())
 }

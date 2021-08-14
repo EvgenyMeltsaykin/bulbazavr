@@ -43,4 +43,14 @@ class TamagochiPresenter @Inject constructor(
     fun onFullInfoClick() {
         viewState.navigateToFullInfo(pokemonName)
     }
+
+    fun updateInfo() {
+        pokemonRepository.getPokemon(pokemonName).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { },
+                {
+                    viewState.navigateToFavoriteList()
+                }
+            )
+    }
 }

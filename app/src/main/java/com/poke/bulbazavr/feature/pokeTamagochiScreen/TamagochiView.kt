@@ -12,4 +12,7 @@ interface TamagochiView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun navigateToFullInfo(pokemonName: String)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun navigateToFavoriteList()
 }

@@ -16,12 +16,12 @@ class PokeDetailPresenter @Inject constructor(
 ) : MvpPresenter<PokeDetailView>() {
 
     private var pokemonName = ""
+    private var isFavorite = false
     private lateinit var originalPokemonInfo: PokemonDTO
     private lateinit var visiblePokemonInfo: PokemonDTO
     fun init(pokemonName: String) {
         this.pokemonName = pokemonName
         loadInformation()
-
     }
 
     private fun loadInformation() {
@@ -36,6 +36,18 @@ class PokeDetailPresenter @Inject constructor(
                 },
                 {
 
+                }
+            )
+
+        pokemonRepository.getPokemon(pokemonName).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    isFavorite = true
+                    viewState.isFavoritePokemon()
+                },
+                {
+                    isFavorite = false
+                    viewState.isNotFavoritePokemon()
                 }
             )
     }
@@ -69,8 +81,15 @@ class PokeDetailPresenter @Inject constructor(
         viewState.setupInfoPokemon(visiblePokemonInfo)
     }
 
-    fun onLoveClick() {
-        pokemonRepository.insert(originalPokemonInfo).subscribe()
+    fun onFavoriteClick() {
+        if (isFavorite) {
+            pokemonRepository.delete(pokemonName).subscribe()
+            viewState.isNotFavoritePokemon()
+        } else {
+            pokemonRepository.insert(originalPokemonInfo).subscribe()
+            viewState.isFavoritePokemon()
+        }
+        isFavorite = !isFavorite
     }
 
 }

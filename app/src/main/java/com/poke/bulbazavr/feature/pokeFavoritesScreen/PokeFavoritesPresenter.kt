@@ -11,14 +11,16 @@ class PokeFavoritesPresenter @Inject constructor(
 ) : MvpPresenter<PokeFavoritesView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        loadInformation()
+    }
+
+    fun loadInformation() {
         pokemonRepository.getAllFavoritePokemon().observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { pokemons ->
                     viewState.showFavoritePokemons(pokemons.map { pokemonEntity -> pokemonEntity.toFavoritePokemonDTO() })
                 },
-                {
-
-                }
+                { }
             )
     }
 

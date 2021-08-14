@@ -9,4 +9,9 @@ interface PokeDetailView : MvpView {
     @StateStrategyType(AddToEndStrategy::class)
     fun setupInfoPokemon(pokemon: PokemonDTO)
 
+    @StateStrategyType(AddToEndStrategy::class)
+    fun isFavoritePokemon()
+
+    @StateStrategyType(AddToEndStrategy::class)
+    fun isNotFavoritePokemon()
 }
