@@ -1,13 +1,17 @@
 package com.poke.bulbazavr.feature.pokeFavoritesScreen
 
+import android.app.Notification
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
+import com.poke.bulbazavr.App
 import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.appComponent
 import com.poke.bulbazavr.data.FavoritePokemonDTO
+import com.poke.bulbazavr.database.data.PokemonEntity
 import com.poke.bulbazavr.databinding.FragmentPokeFavoritesBinding
 import com.poke.bulbazavr.feature.pokeFavoritesScreen.adapters.FavoritePokemonsAdapter
 import moxy.presenter.InjectPresenter

@@ -1,6 +1,12 @@
 package com.poke.bulbazavr.feature.pokeFavoritesScreen
 
+import android.app.Notification
+import android.util.Log
+import androidx.core.app.NotificationCompat
+import com.poke.bulbazavr.App
+import com.poke.bulbazavr.R
 import com.poke.bulbazavr.data.FavoritePokemonDTO
+import com.poke.bulbazavr.database.data.PokemonEntity
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter

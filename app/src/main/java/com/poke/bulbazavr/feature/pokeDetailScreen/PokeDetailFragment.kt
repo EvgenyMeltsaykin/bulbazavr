@@ -15,10 +15,10 @@ import com.poke.bulbazavr.appComponent
 import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.databinding.FragmentPokeDetailBinding
 import com.poke.bulbazavr.feature.pokeDetailScreen.adapters.*
-import com.poke.bulbazavr.utils.Constans.ABILITY_ID
-import com.poke.bulbazavr.utils.Constans.BEGIN_HEADER_ID
-import com.poke.bulbazavr.utils.Constans.END_HEADER_ID
-import com.poke.bulbazavr.utils.Constans.STAT_ID
+import com.poke.bulbazavr.utils.Constants.ABILITY_ID
+import com.poke.bulbazavr.utils.Constants.BEGIN_HEADER_ID
+import com.poke.bulbazavr.utils.Constants.END_HEADER_ID
+import com.poke.bulbazavr.utils.Constants.STAT_ID
 import com.poke.bulbazavr.utils.delegate.adapter.CompositeAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
 import com.poke.bulbazavr.utils.requestListener
