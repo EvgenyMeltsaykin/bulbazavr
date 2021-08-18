@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/pokeListFragment"
-        android:icon="@drawable/ic_all_poke"
+        android:icon="@drawable/ic_pokeball"
         android:title="Все" />
     <item
         android:id="@+id/pokeFavoritesFragment"

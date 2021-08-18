@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.data.AbilityDTO
 import com.poke.bulbazavr.databinding.AbilityItemBinding
-import com.poke.bulbazavr.utils.Constans.ABILITY_ID
+import com.poke.bulbazavr.utils.Constants.ABILITY_ID
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
 

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.data.StatDTO
 import com.poke.bulbazavr.databinding.StatItemBinding
-import com.poke.bulbazavr.utils.Constans.STAT_ID
+import com.poke.bulbazavr.utils.Constants.STAT_ID
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
 

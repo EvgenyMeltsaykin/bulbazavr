@@ -3,7 +3,7 @@ package com.poke.bulbazavr.api
 import com.poke.bulbazavr.api.data.responses.AbilityInfoResponse
 import com.poke.bulbazavr.api.data.responses.BaseResponse
 import com.poke.bulbazavr.api.data.responses.PokemonResponse
-import com.poke.bulbazavr.utils.Constans.BASE_POKE_API
+import com.poke.bulbazavr.utils.Constants.BASE_POKE_API
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
