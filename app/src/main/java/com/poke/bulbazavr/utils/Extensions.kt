@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.utils
+package com.poke.core.utils
 
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.RequestBuilder

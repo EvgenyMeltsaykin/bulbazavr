@@ -4,7 +4,7 @@ import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.poke.bulbazavr.utils.EqualsDiffCallback
+import com.poke.core.utils.EqualsDiffCallback
 
 class CompositeAdapter(
     private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>

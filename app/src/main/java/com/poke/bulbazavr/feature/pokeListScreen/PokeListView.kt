@@ -1,7 +1,7 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
-import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
+import com.poke.core.data.dto.PokemonDTO
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndStrategy
 import moxy.viewstate.strategy.SkipStrategy

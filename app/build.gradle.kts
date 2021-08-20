@@ -56,6 +56,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(Navigation.navFragment)
     implementation(Navigation.navUiKtx)
     implementation(Kotlin.stdlib)

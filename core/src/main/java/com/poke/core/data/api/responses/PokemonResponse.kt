@@ -1,7 +1,8 @@
-package com.poke.bulbazavr.api.data.responses
+package com.poke.core.data.api.responses
 
 import com.google.gson.annotations.SerializedName
-import com.poke.bulbazavr.data.*
+import com.poke.core.data.dto.*
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,9 +23,9 @@ data class PokemonResponse(
 
 @Serializable
 data class AbilityResponse(
-    @SerializedName("is_hidden") val isHidden: Boolean = true,
-    @SerializedName("slot") val slot: Int = 0,
-    @SerializedName("ability") val ability: NamedAPIResourceResponse,
+    @SerialName("is_hidden") val isHidden: Boolean = true,
+    @SerialName("slot") val slot: Int = 0,
+    @SerialName("ability") val ability: NamedAPIResourceResponse,
     val abilityInfo: AbilityInfoResponse
 ) {
     fun toAbilityDTO(): AbilityDTO = AbilityDTO(

@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.poke.bulbazavr.R
-import com.poke.bulbazavr.data.FavoritePokemonDTO
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
-import com.poke.bulbazavr.utils.EqualsDiffCallback
+import com.poke.core.data.dto.FavoritePokemonDTO
+import com.poke.core.utils.EqualsDiffCallback
 
 class FavoritePokemonsAdapter(
     private val onPokemonClick: (pokemon: FavoritePokemonDTO) -> Unit

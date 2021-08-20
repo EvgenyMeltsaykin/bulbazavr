@@ -1,11 +1,11 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
-import com.poke.bulbazavr.api.data.request.OffsetLimitRequest
-import com.poke.bulbazavr.api.data.responses.BaseResponse
-import com.poke.bulbazavr.api.data.responses.PokemonResponse
 import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
-import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
+import com.poke.core.data.api.request.OffsetLimitRequest
+import com.poke.core.data.api.responses.BaseResponse
+import com.poke.core.data.api.responses.PokemonResponse
+import com.poke.core.data.dto.PokemonDTO
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter

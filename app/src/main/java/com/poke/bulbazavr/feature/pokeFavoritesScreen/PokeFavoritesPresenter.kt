@@ -1,7 +1,7 @@
 package com.poke.bulbazavr.feature.pokeFavoritesScreen
 
-import com.poke.bulbazavr.data.FavoritePokemonDTO
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
+import com.poke.core.data.dto.FavoritePokemonDTO
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
 import javax.inject.Inject

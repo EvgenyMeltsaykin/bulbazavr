@@ -2,8 +2,8 @@ package com.poke.bulbazavr.feature.pokeDetailScreen
 
 import android.util.Log
 import com.poke.bulbazavr.api.useCase.GetPokemonUseCase
-import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
+import com.poke.core.data.dto.PokemonDTO
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter

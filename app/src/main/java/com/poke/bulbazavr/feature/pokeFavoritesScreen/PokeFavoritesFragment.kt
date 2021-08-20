@@ -7,9 +7,9 @@ import androidx.navigation.findNavController
 import com.poke.bulbazavr.BaseFragment
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.appComponent
-import com.poke.bulbazavr.data.FavoritePokemonDTO
 import com.poke.bulbazavr.databinding.FragmentPokeFavoritesBinding
 import com.poke.bulbazavr.feature.pokeFavoritesScreen.adapters.FavoritePokemonsAdapter
+import com.poke.core.data.dto.FavoritePokemonDTO
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
