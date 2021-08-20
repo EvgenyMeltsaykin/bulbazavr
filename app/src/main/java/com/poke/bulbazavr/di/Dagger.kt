@@ -13,6 +13,8 @@ import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
 import com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import com.poke.bulbazavr.feature.pokeTamagochiScreen.TamagochiFragment
+import com.poke.bulbazavr.services.TamagochiService
+import com.poke.bulbazavr.services.job.TamagochiJobService
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -25,9 +27,11 @@ interface AppComponent {
     fun inject(pokeDetailFragment: PokeDetailFragment)
     fun inject(pokeFavoritesFragment: PokeFavoritesFragment)
     fun inject(tamagochiFragment: TamagochiFragment)
+    fun inject(tamagochiService: TamagochiService)
+    fun inject(tamagochiJobService: TamagochiJobService)
 }
 
-@Module(includes = [NetworkModule::class, AppBindModule::class, DatabaseModule::class, RoomModule::class])
+@Module(includes = [NetworkModule::class, AppBindModule::class, DatabaseModule::class, RoomModule::class, ServiceModule::class])
 class AppModule(@NonNull context: Context) {
     private val appContext = context
 
@@ -39,6 +43,7 @@ class AppModule(@NonNull context: Context) {
     @Provides
     @Singleton
     fun provideGson(): Gson = Gson()
+
     /*
     @Provides
     fun provideAnimationManagerImpl() : AnimationManagerImpl = AnimationManagerImpl()
@@ -46,6 +51,14 @@ class AppModule(@NonNull context: Context) {
      */
 }
 
+@Module
+class ServiceModule() {
+    @Provides
+    fun provideTamagochiService(): TamagochiService {
+        return TamagochiService()
+    }
+
+}
 
 @Module
 class DatabaseModule {

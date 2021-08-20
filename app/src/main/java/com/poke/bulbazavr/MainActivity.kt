@@ -1,5 +1,9 @@
 package com.poke.bulbazavr
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,6 +16,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.poke.bulbazavr.databinding.ActivityMainBinding
+import com.poke.bulbazavr.services.TamagochiService
+import com.poke.bulbazavr.services.job.TamagochiJobService
 import moxy.MvpAppCompatActivity
 
 class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, FragmentInfoForActivity {
@@ -35,6 +41,28 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, Fragme
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.btvBottomMenu.setupWithNavController(navController)
+
+        setupTamagochiService()
+        setupTamagochiJobService()
+    }
+
+    private fun setupTamagochiService() {
+        val tamagochiServiceIntent = Intent(this, TamagochiService::class.java)
+        startService(tamagochiServiceIntent)
+    }
+
+    private fun setupTamagochiJobService() {
+        val componentName = ComponentName(this, TamagochiJobService::class.java)
+        val jobInfo =
+            JobInfo.Builder(123, componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setRequiresCharging(false)
+                .setPersisted(true)
+                .setPeriodic(JobInfo.getMinPeriodMillis())
+                .build()
+
+        val jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.schedule(jobInfo)
     }
 
     override fun onDestroy() {

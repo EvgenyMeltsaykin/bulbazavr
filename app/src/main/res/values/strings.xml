@@ -11,4 +11,7 @@
     <string name="food">Еда</string>
     <string name="health">Здоровье</string>
     <string name="full_info">Полная информация</string>
+    <string name="pokemon_hungry">Нужно покормить покемонов:</string>
+    <string name="pokemon_sad">Покемоны заскучали:</string>
+    <string name="pokemon_in_pokeball">Покемоны в покеболе</string>
 </resources>

@@ -17,10 +17,10 @@ import com.poke.bulbazavr.feature.pokeDetailScreen.adapters.*
 import com.poke.bulbazavr.utils.delegate.adapter.CompositeAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
 import com.poke.core.data.dto.PokemonDTO
-import com.poke.core.utils.Constans.ABILITY_ID
-import com.poke.core.utils.Constans.BEGIN_HEADER_ID
-import com.poke.core.utils.Constans.END_HEADER_ID
-import com.poke.core.utils.Constans.STAT_ID
+import com.poke.core.utils.Constants.ABILITY_ID
+import com.poke.core.utils.Constants.BEGIN_HEADER_ID
+import com.poke.core.utils.Constants.END_HEADER_ID
+import com.poke.core.utils.Constants.STAT_ID
 import com.poke.core.utils.requestListener
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter

@@ -15,7 +15,11 @@ interface FavoritePokemonRepositoryDao {
     fun update(favoritePokemonDTO: FavoritePokemonDTO): Completable
     fun plusFoodIndicator(pokemonName: String): Completable
     fun plusFunIndicator(pokemonName: String): Completable
+    fun minusFoodIndicator(): Completable
+    fun minusFunIndicator(): Completable
     fun delete(pokemonName: String): Completable
+    fun getHungryPokemons(): Single<List<PokemonEntity>>
+    fun getSadPokemons(): Single<List<PokemonEntity>>
 }
 
 class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
@@ -47,6 +51,18 @@ class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
     override fun plusFunIndicator(pokemonName: String): Completable =
         pokemonDao.plusFunIndicator(pokemonName).subscribeOn(Schedulers.io())
 
+    override fun minusFoodIndicator(): Completable =
+        pokemonDao.minusFoodIndicator().subscribeOn(Schedulers.io())
+
+    override fun minusFunIndicator(): Completable =
+        pokemonDao.minusFunIndicator().subscribeOn(Schedulers.io())
+
     override fun delete(pokemonName: String): Completable =
         pokemonDao.deletePokemon(pokemonName).subscribeOn(Schedulers.io())
+
+    override fun getHungryPokemons(): Single<List<PokemonEntity>> =
+        pokemonDao.getHungryPokemons().subscribeOn(Schedulers.io())
+
+    override fun getSadPokemons(): Single<List<PokemonEntity>> =
+        pokemonDao.getSadPokemons().subscribeOn(Schedulers.io())
 }

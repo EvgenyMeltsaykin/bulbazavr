@@ -9,7 +9,7 @@ import com.poke.bulbazavr.R
 import com.poke.bulbazavr.databinding.HeaderTextItemBinding
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
-import com.poke.core.utils.Constans
+import com.poke.core.utils.Constants
 
 data class HeaderDelegateItem(
     private val id: Int
@@ -25,7 +25,7 @@ class HeaderDelegateAdapter() :
         fun bind(item: HeaderDelegateItem) {
             with(binding) {
                 clMain.background = when (item.id()) {
-                    Constans.BEGIN_HEADER_ID -> AppCompatResources.getDrawable(
+                    Constants.BEGIN_HEADER_ID -> AppCompatResources.getDrawable(
                         itemView.context,
                         R.drawable.header_item_top_round_background
                     )

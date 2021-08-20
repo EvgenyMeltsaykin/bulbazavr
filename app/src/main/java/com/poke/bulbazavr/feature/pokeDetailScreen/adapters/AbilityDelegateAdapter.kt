@@ -9,7 +9,7 @@ import com.poke.bulbazavr.databinding.AbilityItemBinding
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
 import com.poke.core.data.dto.AbilityDTO
-import com.poke.core.utils.Constans.ABILITY_ID
+import com.poke.core.utils.Constants.ABILITY_ID
 
 data class AbilityDelegateItem(
     private val ability: AbilityDTO,

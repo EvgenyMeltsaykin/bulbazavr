@@ -37,11 +37,17 @@ interface FavoritePokemonDao {
     @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 WHERE :pokemonName like name AND funIndicator <> 100")
     fun plusFunIndicator(pokemonName: String): Completable
 
-    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator - 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1  WHERE :pokemonName like name AND foodIndicator <> 100")
-    fun minusFoodIndicator(pokemonName: String): Completable
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator - 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1  WHERE foodIndicator > 0")
+    fun minusFoodIndicator(): Completable
 
-    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator - 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 WHERE :pokemonName like name AND funIndicator <> 100")
-    fun minusFunIndicator(pokemonName: String): Completable
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator - 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 WHERE funIndicator > 0")
+    fun minusFunIndicator(): Completable
 
+    @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME} WHERE foodIndicator < 10")
+    fun getHungryPokemons(): Single<List<PokemonEntity>>
+
+
+    @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME} WHERE funIndicator < 10")
+    fun getSadPokemons(): Single<List<PokemonEntity>>
 
 }

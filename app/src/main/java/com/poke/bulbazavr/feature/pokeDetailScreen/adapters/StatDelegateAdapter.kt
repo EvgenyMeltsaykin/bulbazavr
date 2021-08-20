@@ -9,7 +9,7 @@ import com.poke.bulbazavr.databinding.StatItemBinding
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
 import com.poke.core.data.dto.StatDTO
-import com.poke.core.utils.Constans.STAT_ID
+import com.poke.core.utils.Constants.STAT_ID
 
 data class StatDelegateItem(
     private val stat: StatDTO,
