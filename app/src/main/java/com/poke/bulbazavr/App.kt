@@ -1,24 +1,17 @@
 package com.poke.bulbazavr
 
-import android.app.*
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
+import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.core.content.ContextCompat.getSystemService
-import com.poke.bulbazavr.App.Companion.TAMAGOCHI_CHANNEL_ID
 import com.poke.bulbazavr.di.AppComponent
 import com.poke.bulbazavr.di.AppModule
 import com.poke.bulbazavr.di.DaggerAppComponent
-import com.poke.bulbazavr.services.job.TamagochiJobService
-import dagger.android.DispatchingAndroidInjector
-import javax.inject.Inject
-import dagger.android.AndroidInjector
 
 class App : Application() {
-    companion object{
+    companion object {
         const val TAMAGOCHI_CHANNEL_ID = "TAMAGOCHI SERVICE CHANNEL"
         const val STAT_CHANNEL_ID = "STAT CHANNEL"
     }
@@ -33,8 +26,8 @@ class App : Application() {
         createNotificationChannels()
     }
 
-    private fun createNotificationChannels(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    private fun createNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val tamagochiServiceChannel = NotificationChannel(
                 TAMAGOCHI_CHANNEL_ID,
                 TAMAGOCHI_CHANNEL_ID,
@@ -46,13 +39,12 @@ class App : Application() {
                 STAT_CHANNEL_ID,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            val manager = getSystemService(this.applicationContext,NotificationManager::class.java)
+            val manager = getSystemService(this.applicationContext, NotificationManager::class.java)
             manager?.createNotificationChannel(tamagochiServiceChannel)
             manager?.createNotificationChannel(statChannel)
         }
     }
 }
-
 
 
 val Context.appComponent: AppComponent

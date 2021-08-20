@@ -4,9 +4,7 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -17,12 +15,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.poke.bulbazavr.databinding.ActivityMainBinding
 import com.poke.bulbazavr.services.TamagochiService
 import com.poke.bulbazavr.services.job.TamagochiJobService
 import moxy.MvpAppCompatActivity
-import java.util.concurrent.TimeUnit
 
 class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, FragmentInfoForActivity {
     private var _binding: ActivityMainBinding? = null
@@ -50,15 +46,15 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, Fragme
         setupTamagochiJobService()
     }
 
-    private fun setupTamagochiService(){
-        val tamagochiServiceIntent = Intent(this,TamagochiService::class.java)
+    private fun setupTamagochiService() {
+        val tamagochiServiceIntent = Intent(this, TamagochiService::class.java)
         startService(tamagochiServiceIntent)
     }
 
-    private fun setupTamagochiJobService(){
-        val componentName = ComponentName(this,TamagochiJobService::class.java)
+    private fun setupTamagochiJobService() {
+        val componentName = ComponentName(this, TamagochiJobService::class.java)
         val jobInfo =
-            JobInfo.Builder(123,componentName)
+            JobInfo.Builder(123, componentName)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setRequiresCharging(false)
                 .setPersisted(true)

@@ -7,9 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.databinding.HeaderTextItemBinding
-import com.poke.bulbazavr.utils.Constants
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapter
 import com.poke.bulbazavr.utils.delegate.adapter.DelegateAdapterItem
+import com.poke.core.utils.Constants
 
 data class HeaderDelegateItem(
     private val id: Int

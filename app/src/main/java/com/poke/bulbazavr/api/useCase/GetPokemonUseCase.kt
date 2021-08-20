@@ -2,7 +2,7 @@ package com.poke.bulbazavr.api.useCase
 
 import android.util.Log
 import com.poke.bulbazavr.api.PokeApiService
-import com.poke.bulbazavr.api.data.responses.PokemonResponse
+import com.poke.core.data.api.responses.PokemonResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

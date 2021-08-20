@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.utils
+package com.poke.core.utils
 
 object Constants {
     const val BASE_POKE_API = "https://pokeapi.co/api/v2/"

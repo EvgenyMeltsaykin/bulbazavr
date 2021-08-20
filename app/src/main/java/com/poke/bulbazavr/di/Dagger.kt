@@ -18,7 +18,6 @@ import com.poke.bulbazavr.services.job.TamagochiJobService
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.android.ContributesAndroidInjector
 import javax.inject.Singleton
 
 @Component(modules = [AppModule::class])
@@ -53,7 +52,7 @@ class AppModule(@NonNull context: Context) {
 }
 
 @Module
-class ServiceModule(){
+class ServiceModule() {
     @Provides
     fun provideTamagochiService(): TamagochiService {
         return TamagochiService()

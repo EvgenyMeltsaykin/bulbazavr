@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.data
+package com.poke.core.data.dto
 
 data class PokemonDTO(
     val name: String,

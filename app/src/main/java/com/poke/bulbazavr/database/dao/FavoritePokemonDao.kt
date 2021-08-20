@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.poke.bulbazavr.database.data.PokemonEntity
+import com.poke.core.data.entity.PokemonEntity
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -44,10 +44,10 @@ interface FavoritePokemonDao {
     fun minusFunIndicator(): Completable
 
     @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME} WHERE foodIndicator < 10")
-    fun getHungryPokemons():Single<List<PokemonEntity>>
+    fun getHungryPokemons(): Single<List<PokemonEntity>>
 
 
     @Query("SELECT * FROM ${PokemonEntity.TABLE_NAME} WHERE funIndicator < 10")
-    fun getSadPokemons():Single<List<PokemonEntity>>
+    fun getSadPokemons(): Single<List<PokemonEntity>>
 
 }

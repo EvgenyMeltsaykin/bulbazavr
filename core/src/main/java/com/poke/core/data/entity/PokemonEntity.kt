@@ -1,10 +1,10 @@
-package com.poke.bulbazavr.database.data
+package com.poke.core.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.poke.bulbazavr.data.FavoritePokemonDTO
-import com.poke.bulbazavr.database.data.PokemonEntity.Companion.TABLE_NAME
+import com.poke.core.data.dto.FavoritePokemonDTO
+import com.poke.core.data.entity.PokemonEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class PokemonEntity(

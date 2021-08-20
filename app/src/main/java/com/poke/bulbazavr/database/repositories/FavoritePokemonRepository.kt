@@ -1,10 +1,9 @@
 package com.poke.bulbazavr.database.repositories
 
-import androidx.room.Query
-import com.poke.bulbazavr.data.FavoritePokemonDTO
-import com.poke.bulbazavr.data.PokemonDTO
 import com.poke.bulbazavr.database.dao.FavoritePokemonDao
-import com.poke.bulbazavr.database.data.PokemonEntity
+import com.poke.core.data.dto.FavoritePokemonDTO
+import com.poke.core.data.dto.PokemonDTO
+import com.poke.core.data.entity.PokemonEntity
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -19,8 +18,8 @@ interface FavoritePokemonRepositoryDao {
     fun minusFoodIndicator(): Completable
     fun minusFunIndicator(): Completable
     fun delete(pokemonName: String): Completable
-    fun getHungryPokemons():Single<List<PokemonEntity>>
-    fun getSadPokemons():Single<List<PokemonEntity>>
+    fun getHungryPokemons(): Single<List<PokemonEntity>>
+    fun getSadPokemons(): Single<List<PokemonEntity>>
 }
 
 class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :

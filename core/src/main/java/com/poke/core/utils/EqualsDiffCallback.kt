@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.utils
+package com.poke.core.utils
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil

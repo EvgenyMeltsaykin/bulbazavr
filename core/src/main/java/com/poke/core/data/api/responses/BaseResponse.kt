@@ -1,7 +1,8 @@
-package com.poke.bulbazavr.api.data.responses
+package com.poke.core.data.api.responses
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
+
 
 @Serializable
 data class BaseResponse<T>(

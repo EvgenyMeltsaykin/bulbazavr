@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.api.data.request
+package com.poke.core.data.api.request
 
 
 data class OffsetLimitRequest(
