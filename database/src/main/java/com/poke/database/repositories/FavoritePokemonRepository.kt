@@ -1,9 +1,9 @@
-package com.poke.bulbazavr.database.repositories
+package com.poke.database.repositories
 
-import com.poke.bulbazavr.database.dao.FavoritePokemonDao
 import com.poke.core.data.dto.FavoritePokemonDTO
 import com.poke.core.data.dto.PokemonDTO
 import com.poke.core.data.entity.PokemonEntity
+import com.poke.database.dao.FavoritePokemonDao
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

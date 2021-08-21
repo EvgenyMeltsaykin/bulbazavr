@@ -58,6 +58,7 @@ kapt {
 dependencies {
     implementation(project(":core"))
     implementation(project(":api"))
+    implementation(project(":database"))
     implementation(Navigation.navFragment)
     implementation(Navigation.navUiKtx)
     implementation(Kotlin.stdlib)

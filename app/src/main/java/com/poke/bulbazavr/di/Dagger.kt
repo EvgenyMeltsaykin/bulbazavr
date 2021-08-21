@@ -7,8 +7,6 @@ import com.google.gson.Gson
 import com.poke.api.PokeApiService
 import com.poke.api.useCase.GetPokemonUseCase
 import com.poke.api.useCase.GetPokemonsUseCase
-import com.poke.bulbazavr.database.FavoritePokemonDatabase
-import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
 import com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
@@ -64,8 +62,8 @@ class ServiceModule() {
 class DatabaseModule {
     @Provides
     @Singleton
-    fun provideFavoritePokeRepository(roomDatabase: FavoritePokemonDatabase): FavoritePokemonRepository =
-        FavoritePokemonRepository(roomDatabase.favoritePokemonDao())
+    fun provideFavoritePokeRepository(roomDatabase: com.poke.database.FavoritePokemonDatabase): com.poke.database.repositories.FavoritePokemonRepository =
+        com.poke.database.repositories.FavoritePokemonRepository(roomDatabase.favoritePokemonDao())
 }
 
 
@@ -74,11 +72,12 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(appContext: Context): FavoritePokemonDatabase = Room.databaseBuilder(
-        appContext,
-        FavoritePokemonDatabase::class.java,
-        "favorite_pokemon_room_database"
-    ).build()
+    fun provideDatabase(appContext: Context): com.poke.database.FavoritePokemonDatabase =
+        Room.databaseBuilder(
+            appContext,
+            com.poke.database.FavoritePokemonDatabase::class.java,
+            "favorite_pokemon_room_database"
+        ).build()
 }
 
 @Module
