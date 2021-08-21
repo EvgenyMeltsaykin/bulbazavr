@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.annotation.NonNull
 import androidx.room.Room
 import com.google.gson.Gson
-import com.poke.bulbazavr.api.PokeApiService
-import com.poke.bulbazavr.api.useCase.GetPokemonUseCase
-import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.database.FavoritePokemonDatabase
 import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
@@ -85,20 +82,22 @@ class RoomModule {
 class NetworkModule {
     @Provides
     @Singleton
-    fun providePokeApiService(): PokeApiService {
-        return PokeApiService.create()
+    fun providePokeApiService(): com.poke.api.PokeApiService {
+        return com.poke.api.PokeApiService.create()
     }
 
     @Provides
     fun getPokemonsUseCase(
-        pokeApiService: PokeApiService
-    ): GetPokemonsUseCase = GetPokemonsUseCase(pokeApiService)
+        pokeApiService: com.poke.api.PokeApiService
+    ): com.poke.api.useCase.GetPokemonsUseCase =
+        com.poke.api.useCase.GetPokemonsUseCase(pokeApiService)
 
 
     @Provides
     fun getPokemonUseCase(
-        pokeApiService: PokeApiService
-    ): GetPokemonUseCase = GetPokemonUseCase(pokeApiService)
+        pokeApiService: com.poke.api.PokeApiService
+    ): com.poke.api.useCase.GetPokemonUseCase =
+        com.poke.api.useCase.GetPokemonUseCase(pokeApiService)
 
 }
 

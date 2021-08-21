@@ -1,6 +1,6 @@
-package com.poke.bulbazavr.api.useCase
+package com.poke.api.useCase
 
-import com.poke.bulbazavr.api.PokeApiService
+import com.poke.api.PokeApiService
 import com.poke.core.data.api.request.OffsetLimitRequest
 import com.poke.core.data.api.responses.BaseResponse
 import com.poke.core.data.api.responses.PokemonResponse
