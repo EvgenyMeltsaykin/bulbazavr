@@ -1,7 +1,7 @@
-package com.poke.bulbazavr.api.useCase
+package com.poke.api.useCase
 
 import android.util.Log
-import com.poke.bulbazavr.api.PokeApiService
+import com.poke.api.PokeApiService
 import com.poke.core.data.api.responses.PokemonResponse
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single

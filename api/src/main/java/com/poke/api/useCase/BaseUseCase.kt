@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.api.useCase
+package com.poke.api.useCase
 
 interface BaseUseCase<REQUEST, RESPONSE> {
     operator fun invoke(

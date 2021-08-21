@@ -57,6 +57,7 @@ kapt {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":api"))
     implementation(Navigation.navFragment)
     implementation(Navigation.navUiKtx)
     implementation(Kotlin.stdlib)
@@ -81,22 +82,17 @@ dependencies {
     //implementation ("androidx.core:core-ktx:1.6.0")
     implementation ("io.ktor:ktor-client-serialization-jvm:1.6.1")
 
-    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
-    implementation ("com.google.dagger:dagger:2.38")
+    implementation("com.google.dagger:dagger:2.38")
     implementation("com.google.dagger:dagger-android-support:2.38")
     kapt("com.google.dagger:dagger-compiler:2.38")
-
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.squareup.okio:okio:2.8.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
 
     kapt("androidx.room:room-compiler:2.3.0")
     kapt("androidx.room:room-runtime:2.3.0")
     implementation("androidx.room:room-rxjava3:2.3.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
 
 }

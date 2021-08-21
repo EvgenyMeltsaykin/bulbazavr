@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.api
+package com.poke.api
 
 import com.poke.core.data.api.responses.AbilityInfoResponse
 import com.poke.core.data.api.responses.BaseResponse

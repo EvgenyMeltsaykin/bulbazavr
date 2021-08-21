@@ -1,6 +1,6 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
-import com.poke.bulbazavr.api.useCase.GetPokemonsUseCase
+import com.poke.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
 import com.poke.core.data.api.request.OffsetLimitRequest
 import com.poke.core.data.api.responses.BaseResponse
