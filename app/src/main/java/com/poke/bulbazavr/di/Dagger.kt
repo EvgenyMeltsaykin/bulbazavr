@@ -13,6 +13,8 @@ import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import com.poke.bulbazavr.feature.pokeTamagochiScreen.TamagochiFragment
 import com.poke.bulbazavr.services.TamagochiService
 import com.poke.bulbazavr.services.job.TamagochiJobService
+import com.poke.database.FavoritePokemonDatabase
+import com.poke.database.repositories.FavoritePokemonRepository
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -62,8 +64,8 @@ class ServiceModule() {
 class DatabaseModule {
     @Provides
     @Singleton
-    fun provideFavoritePokeRepository(roomDatabase: com.poke.database.FavoritePokemonDatabase): com.poke.database.repositories.FavoritePokemonRepository =
-        com.poke.database.repositories.FavoritePokemonRepository(roomDatabase.favoritePokemonDao())
+    fun provideFavoritePokeRepository(roomDatabase: FavoritePokemonDatabase): FavoritePokemonRepository =
+        FavoritePokemonRepository(roomDatabase.favoritePokemonDao())
 }
 
 
@@ -72,10 +74,10 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(appContext: Context): com.poke.database.FavoritePokemonDatabase =
+    fun provideDatabase(appContext: Context): FavoritePokemonDatabase =
         Room.databaseBuilder(
             appContext,
-            com.poke.database.FavoritePokemonDatabase::class.java,
+            FavoritePokemonDatabase::class.java,
             "favorite_pokemon_room_database"
         ).build()
 }

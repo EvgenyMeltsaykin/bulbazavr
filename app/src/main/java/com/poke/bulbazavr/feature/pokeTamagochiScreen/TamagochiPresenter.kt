@@ -1,5 +1,6 @@
 package com.poke.bulbazavr.feature.pokeTamagochiScreen
 
+import com.poke.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -7,7 +8,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class TamagochiPresenter @Inject constructor(
-    private val pokemonRepository: com.poke.database.repositories.FavoritePokemonRepository
+    private val pokemonRepository: FavoritePokemonRepository
 ) : MvpPresenter<TamagochiView>() {
 
     private var pokemonName: String = ""

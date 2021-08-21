@@ -16,13 +16,14 @@ import com.poke.core.data.entity.PokemonEntity
 import com.poke.core.utils.Constants.ID_HUNGRY_NOTIFICATION
 import com.poke.core.utils.Constants.ID_SAD_NOTIFICATION
 import com.poke.core.utils.Constants.MINUS_STAT_IN_15_MINUTE
+import com.poke.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 
 class TamagochiJobService() : JobService() {
     @Inject
-    lateinit var pokemonRepository: com.poke.database.repositories.FavoritePokemonRepository
+    lateinit var pokemonRepository: FavoritePokemonRepository
     private var firstInit = true
 
     override fun onCreate() {
