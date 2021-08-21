@@ -1,5 +1,6 @@
 package com.poke.bulbazavr.feature.pokeListScreen
 
+import com.poke.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.databinding.PokemonListItemBinding
 import com.poke.core.data.api.request.OffsetLimitRequest
 import com.poke.core.data.api.responses.BaseResponse
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class PokeListPresenter @Inject constructor(
-    private val getPokemonsUseCase: com.poke.api.useCase.GetPokemonsUseCase
+    private val getPokemonsUseCase: GetPokemonsUseCase
 ) : MvpPresenter<PokeListView>() {
 
     private val pokemons: MutableList<PokemonDTO> = mutableListOf()
