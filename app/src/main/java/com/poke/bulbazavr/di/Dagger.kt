@@ -7,14 +7,14 @@ import com.google.gson.Gson
 import com.poke.api.PokeApiService
 import com.poke.api.useCase.GetPokemonUseCase
 import com.poke.api.useCase.GetPokemonsUseCase
-import com.poke.bulbazavr.database.FavoritePokemonDatabase
-import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
 import com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
 import com.poke.bulbazavr.feature.pokeTamagochiScreen.TamagochiFragment
 import com.poke.bulbazavr.services.TamagochiService
 import com.poke.bulbazavr.services.job.TamagochiJobService
+import com.poke.database.FavoritePokemonDatabase
+import com.poke.database.repositories.FavoritePokemonRepository
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -74,11 +74,12 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(appContext: Context): FavoritePokemonDatabase = Room.databaseBuilder(
-        appContext,
-        FavoritePokemonDatabase::class.java,
-        "favorite_pokemon_room_database"
-    ).build()
+    fun provideDatabase(appContext: Context): FavoritePokemonDatabase =
+        Room.databaseBuilder(
+            appContext,
+            FavoritePokemonDatabase::class.java,
+            "favorite_pokemon_room_database"
+        ).build()
 }
 
 @Module

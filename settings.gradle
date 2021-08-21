@@ -2,3 +2,4 @@ rootProject.name = "Bulbazavr"
 include ':app'
 include ':core'
 include ':api'
+include ':database'

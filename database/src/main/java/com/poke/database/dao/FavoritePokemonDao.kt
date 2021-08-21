@@ -1,4 +1,4 @@
-package com.poke.bulbazavr.database.dao
+package com.poke.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

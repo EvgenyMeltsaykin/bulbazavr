@@ -1,6 +1,6 @@
 package com.poke.bulbazavr.feature.pokeTamagochiScreen
 
-import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
+import com.poke.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter

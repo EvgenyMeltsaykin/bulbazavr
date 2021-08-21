@@ -12,11 +12,11 @@ import com.poke.bulbazavr.App.Companion.STAT_CHANNEL_ID
 import com.poke.bulbazavr.MainActivity
 import com.poke.bulbazavr.R
 import com.poke.bulbazavr.appComponent
-import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
 import com.poke.core.data.entity.PokemonEntity
 import com.poke.core.utils.Constants.ID_HUNGRY_NOTIFICATION
 import com.poke.core.utils.Constants.ID_SAD_NOTIFICATION
 import com.poke.core.utils.Constants.MINUS_STAT_IN_15_MINUTE
+import com.poke.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 

@@ -1,8 +1,9 @@
 package com.poke.bulbazavr.feature.pokeDetailScreen
 
 import android.util.Log
-import com.poke.bulbazavr.database.repositories.FavoritePokemonRepository
+import com.poke.api.useCase.GetPokemonUseCase
 import com.poke.core.data.dto.PokemonDTO
+import com.poke.database.repositories.FavoritePokemonRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class PokeDetailPresenter @Inject constructor(
-    private val getPokemonUseCase: com.poke.api.useCase.GetPokemonUseCase,
+    private val getPokemonUseCase: GetPokemonUseCase,
     private val pokemonRepository: FavoritePokemonRepository
 ) : MvpPresenter<PokeDetailView>() {
 
