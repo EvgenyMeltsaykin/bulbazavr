@@ -68,32 +68,20 @@ dependencies {
     implementation(AndroidX.constraintLayout)
     implementation(Dependencies.material)
     implementation(Dependencies.jUnit)
-    implementation(Dependencies.rxJava3)
-
-
-    implementation ("com.github.moxy-community:moxy:${Versions.moxy}")
-    implementation ("com.github.moxy-community:moxy-androidx:${Versions.moxy}")
-    implementation ("com.github.moxy-community:moxy-ktx:${Versions.moxy}")
-    kapt ("com.github.moxy-community:moxy-compiler:${Versions.moxy}")
-
+    implementation(Moxy.moxy)
+    implementation(Moxy.ktx)
+    implementation(Moxy.androidx)
+    kapt(Moxy.compiler)
     implementation(Glide.glide)
     kapt(Glide.compiler)
-    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
-    //implementation ("androidx.fragment:fragment-ktx:1.3.6")
-    //implementation ("androidx.core:core-ktx:1.6.0")
-    implementation ("io.ktor:ktor-client-serialization-jvm:1.6.1")
-
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-
-    implementation("com.google.dagger:dagger:2.38")
-    implementation("com.google.dagger:dagger-android-support:2.38")
-    kapt("com.google.dagger:dagger-compiler:2.38")
-
-
-    kapt("androidx.room:room-compiler:2.3.0")
-    kapt("androidx.room:room-runtime:2.3.0")
-    implementation("androidx.room:room-rxjava3:2.3.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-
+    implementation(RxJava.rxJava)
+    implementation(RxJava.rxAndroid)
+    implementation(AndroidX.legacySupport)
+    implementation(Dagger.dagger)
+    implementation(Dagger.androidSupport)
+    kapt(Dagger.compiler)
+    kapt(Room.compiler)
+    kapt(Room.runtime)
+    implementation(Room.rxJava3)
+    implementation(Retrofit.converterGson)
 }
