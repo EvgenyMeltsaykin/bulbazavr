@@ -30,13 +30,10 @@ android {
 }
 
 dependencies {
-
-    implementation(Kotlin.stdlib)
-    implementation(AndroidX.coreKtx)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
-    kapt("androidx.room:room-compiler:2.3.0")
-    kapt("androidx.room:room-runtime:2.3.0")
-    implementation("androidx.room:room-rxjava3:2.3.0")
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation(KotlinX.serializationJson)
+    implementation(Dependencies.recyclerView)
+    kapt(Room.compiler)
+    kapt(Room.runtime)
+    implementation(Room.rxJava3)
+    implementation(Retrofit.converterGson)
 }
