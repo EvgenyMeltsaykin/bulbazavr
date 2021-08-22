@@ -6,6 +6,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -27,6 +28,7 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, Fragme
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private var currentOpenedFragment: Fragment? = null
+    private var backPressed = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +101,20 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, Fragme
     }
 
     override fun onBackPressed() {
+        if (isMainScreen()) {
+            if (backPressed + 2000 > System.currentTimeMillis()) {
+                finishAffinity()
+                return
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    "Для выхода нажмите \"Назад\" ещё раз",
+                    Toast.LENGTH_SHORT
+                ).show()
+                backPressed = System.currentTimeMillis()
+                return
+            }
+        }
         if (currentOpenedFragment != null && currentOpenedFragment is OnBackPressListener) {
             (currentOpenedFragment as OnBackPressListener).onBackPressed {
                 currentOpenedFragment = null
@@ -108,6 +124,12 @@ class MainActivity : MvpAppCompatActivity(), BottomNavigation, UIControl, Fragme
             super.onBackPressed()
         }
     }
+
+    private fun isMainScreen(): Boolean {
+        return navController.currentDestination?.id == R.id.pokeListFragment ||
+                navController.currentDestination?.id == R.id.pokeFavoritesFragment
+    }
+
 
     override fun setCurrentVisibleFragment(fragment: Fragment) {
         currentOpenedFragment = fragment
