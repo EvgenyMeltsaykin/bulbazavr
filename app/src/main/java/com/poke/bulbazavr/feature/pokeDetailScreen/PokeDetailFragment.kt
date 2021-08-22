@@ -117,11 +117,11 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
     }
 
     override fun isFavoritePokemon() {
-        Glide.with(requireContext()).load(R.drawable.ic_red_heart).into(binding.ivFavorite)
+       binding.ivFavorite.isEnable = true
     }
 
     override fun isNotFavoritePokemon() {
-        Glide.with(requireContext()).load(R.drawable.ic_gray_heart).into(binding.ivFavorite)
+        binding.ivFavorite.isEnable = false
     }
 
     private fun setupInfoInRecyclerView(pokemon: PokemonDTO) {
@@ -158,5 +158,4 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
     override fun onBackPressed(callback: () -> Unit) {
         callback.invoke()
     }
-
 }

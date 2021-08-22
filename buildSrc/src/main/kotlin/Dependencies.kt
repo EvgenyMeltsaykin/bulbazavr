@@ -6,7 +6,7 @@ object Versions{
     const val material = "1.4.0"
     const val constraintLayout = "2.0.4"
     const val jUnit = "4.13.2"
-    const val gradle = "4.2.2"
+    const val gradle = "7.0.1"
     const val room = "2.3.0"
     const val moxy = "2.2.2"
     const val navigation = "2.3.5"
