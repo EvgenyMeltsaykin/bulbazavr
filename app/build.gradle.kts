@@ -12,13 +12,9 @@ android {
     buildToolsVersion ("30.0.3")
 
     defaultConfig {
-        applicationId("com.poke.bulbazavr")
         minSdkVersion(24)
         targetSdkVersion(30)
-        versionCode(1)
-        versionName("1.0")
 
-        testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -84,4 +80,6 @@ dependencies {
     kapt(Room.runtime)
     implementation(Room.rxJava3)
     implementation(Retrofit.converterGson)
+    implementation(Dependencies.recyclerView)
+
 }
