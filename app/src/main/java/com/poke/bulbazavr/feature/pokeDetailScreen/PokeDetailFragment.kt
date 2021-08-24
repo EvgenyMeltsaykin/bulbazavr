@@ -117,11 +117,11 @@ class PokeDetailFragment : BaseFragment(R.layout.fragment_poke_detail), PokeDeta
     }
 
     override fun isFavoritePokemon() {
-       binding.ivFavorite.isEnable = true
+       binding.ivFavorite.setEnable(true)
     }
 
     override fun isNotFavoritePokemon() {
-        binding.ivFavorite.isEnable = false
+        binding.ivFavorite.setEnable(false)
     }
 
     private fun setupInfoInRecyclerView(pokemon: PokemonDTO) {

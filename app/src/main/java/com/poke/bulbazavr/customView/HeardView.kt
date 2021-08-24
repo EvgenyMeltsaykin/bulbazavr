@@ -16,20 +16,20 @@ fun Context.dpToPx(dp: Int): Float {
     return dp.toFloat() * this.resources.displayMetrics.density
 }
 
+interface HeardViewController {
+    fun setEnable(isEnable: Boolean)
+}
+
 class HeardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), HeardViewController {
     companion object {
         private const val DEFAULT_SIZE = 40
     }
 
-    var isEnable: Boolean = false
-        set(value) {
-            invalidate()
-            field = value
-        }
+    private var isEnable: Boolean = false
 
     private val paint: Paint = Paint()
     private var radius: Float = (width / 4).toFloat()
@@ -100,5 +100,10 @@ class HeardView @JvmOverloads constructor(
         path.lineTo(bx, by)
         path.close()
         canvas?.drawPath(path, paint)
+    }
+
+    override fun setEnable(isEnable: Boolean) {
+        this.isEnable = isEnable
+        invalidate()
     }
 }
