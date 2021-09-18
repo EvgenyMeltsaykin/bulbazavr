@@ -5,5 +5,7 @@ data class FavoritePokemonDTO(
     val url: String,
     val foodIndicator: Int,
     val funIndicator: Int,
-    val hpIndicator: Int
+    val hpIndicator: Int,
+    val lastTimeFeeding: Long,
+    val lastTimeGaming: Long,
 )

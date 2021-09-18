@@ -19,6 +19,10 @@ data class PokemonEntity(
     val funIndicator: Int = 0,
     @ColumnInfo(name = "hpIndicator")
     val hpIndicator: Int = 0,
+    @ColumnInfo(name = "lastTimeFeeding")
+    val lastTimeFeeding: Long = 0,
+    @ColumnInfo(name = "lastTimeGaming")
+    val lastTimeGaming: Long = 0,
 ) {
     companion object {
         const val TABLE_NAME = "favorite_pokemon_table"
@@ -29,6 +33,8 @@ data class PokemonEntity(
         url = this.url,
         foodIndicator = this.foodIndicator,
         funIndicator = this.funIndicator,
-        hpIndicator = this.hpIndicator
+        hpIndicator = this.hpIndicator,
+        lastTimeFeeding = this.lastTimeFeeding,
+        lastTimeGaming = this.lastTimeGaming
     )
 }

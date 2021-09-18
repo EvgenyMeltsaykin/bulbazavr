@@ -3,8 +3,13 @@ package com.poke.bulbazavr.feature.pokeDetailScreen
 import android.util.Log
 import com.poke.api.useCase.GetPokemonUseCase
 import com.poke.core.data.dto.PokemonDTO
-import com.poke.database.repositories.FavoritePokemonRepository
+import com.poke.database.usecases.AddFavoritePokemonUseCase
+import com.poke.database.usecases.DeleteFavoritePokemonUseCase
+import com.poke.database.usecases.GetFavoritePokemonUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.annotations.NonNull
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -12,20 +17,47 @@ import javax.inject.Inject
 @InjectViewState
 class PokeDetailPresenter @Inject constructor(
     private val getPokemonUseCase: GetPokemonUseCase,
-    private val pokemonRepository: FavoritePokemonRepository
+    private val getFavoritePokemonUseCase: GetFavoritePokemonUseCase,
+    private val addFavoritePokemonUseCase: AddFavoritePokemonUseCase,
+    private val deleteFavoritePokemonUseCase: DeleteFavoritePokemonUseCase
 ) : MvpPresenter<PokeDetailView>() {
 
     private var pokemonName = ""
     private var isFavorite = false
     private lateinit var originalPokemonInfo: PokemonDTO
     private lateinit var visiblePokemonInfo: PokemonDTO
+    private var disposable: CompositeDisposable = CompositeDisposable()
     fun init(pokemonName: String) {
         this.pokemonName = pokemonName
         loadInformation()
     }
 
+    override fun onDestroy() {
+        disposable.dispose()
+        super.onDestroy()
+    }
+
     private fun loadInformation() {
-        getPokemonUseCase.invoke(pokemonName).observeOn(AndroidSchedulers.mainThread())
+        disposable.add(getPokemonInfo())
+        disposable.add(getFavoritePokemonInfo())
+    }
+
+    private fun getFavoritePokemonInfo(): @NonNull Disposable {
+        return getFavoritePokemonUseCase(pokemonName).observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    isFavorite = true
+                    viewState.isFavoritePokemon()
+                },
+                {
+                    isFavorite = false
+                    viewState.isNotFavoritePokemon()
+                }
+            )
+    }
+
+    private fun getPokemonInfo(): @NonNull Disposable {
+        return getPokemonUseCase.invoke(pokemonName).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     Log.d("POKEMON_INFO", "response = ${it}")
@@ -36,18 +68,6 @@ class PokeDetailPresenter @Inject constructor(
                 },
                 {
 
-                }
-            )
-
-        pokemonRepository.getPokemon(pokemonName).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    isFavorite = true
-                    viewState.isFavoritePokemon()
-                },
-                {
-                    isFavorite = false
-                    viewState.isNotFavoritePokemon()
                 }
             )
     }
@@ -83,10 +103,10 @@ class PokeDetailPresenter @Inject constructor(
 
     fun onFavoriteClick() {
         if (isFavorite) {
-            pokemonRepository.delete(pokemonName).subscribe()
+            deleteFavoritePokemonUseCase(pokemonName).subscribe()
             viewState.isNotFavoritePokemon()
         } else {
-            pokemonRepository.insert(originalPokemonInfo).subscribe()
+            addFavoritePokemonUseCase(originalPokemonInfo).subscribe()
             viewState.isFavoritePokemon()
         }
         isFavorite = !isFavorite

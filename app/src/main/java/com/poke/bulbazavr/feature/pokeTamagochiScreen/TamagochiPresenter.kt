@@ -1,6 +1,8 @@
 package com.poke.bulbazavr.feature.pokeTamagochiScreen
 
-import com.poke.database.repositories.FavoritePokemonRepository
+import com.poke.database.usecases.AddFoodPokemonUseCase
+import com.poke.database.usecases.AddFunPokemonUseCase
+import com.poke.database.usecases.GetFavoritePokemonUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -8,7 +10,10 @@ import javax.inject.Inject
 
 @InjectViewState
 class TamagochiPresenter @Inject constructor(
-    private val pokemonRepository: FavoritePokemonRepository
+    private val getFavoritePokemonUseCase: GetFavoritePokemonUseCase,
+    private val addFunPokemonUseCase: AddFunPokemonUseCase,
+    private val addFoodPokemonUseCase: AddFoodPokemonUseCase
+
 ) : MvpPresenter<TamagochiView>() {
 
     private var pokemonName: String = ""
@@ -19,7 +24,7 @@ class TamagochiPresenter @Inject constructor(
     }
 
     private fun loadInformation(pokemonName: String) {
-        pokemonRepository.getPokemon(pokemonName).observeOn(AndroidSchedulers.mainThread())
+        getFavoritePokemonUseCase(pokemonName).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     viewState.setupInfo(it.toFavoritePokemonDTO())
@@ -29,15 +34,13 @@ class TamagochiPresenter @Inject constructor(
     }
 
     fun onFeedClick() {
-        pokemonRepository.plusFoodIndicator(pokemonName = pokemonName).subscribe {
+        addFoodPokemonUseCase(pokemonName).subscribe {
             loadInformation(pokemonName)
         }
     }
 
     fun onPlayClick() {
-        pokemonRepository.plusFunIndicator(pokemonName).subscribe {
-            loadInformation(pokemonName)
-        }
+        addFunPokemonUseCase(pokemonName).subscribe { loadInformation(pokemonName) }
     }
 
     fun onFullInfoClick() {
@@ -45,9 +48,8 @@ class TamagochiPresenter @Inject constructor(
     }
 
     fun updateInfo() {
-        pokemonRepository.getPokemon(pokemonName).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { },
+        getFavoritePokemonUseCase(pokemonName).observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ },
                 {
                     viewState.navigateToFavoriteList()
                 }

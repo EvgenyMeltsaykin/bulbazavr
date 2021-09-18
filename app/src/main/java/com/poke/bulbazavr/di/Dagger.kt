@@ -5,8 +5,6 @@ import androidx.annotation.NonNull
 import androidx.room.Room
 import com.google.gson.Gson
 import com.poke.api.PokeApiService
-import com.poke.api.useCase.GetPokemonUseCase
-import com.poke.api.useCase.GetPokemonsUseCase
 import com.poke.bulbazavr.feature.pokeDetailScreen.PokeDetailFragment
 import com.poke.bulbazavr.feature.pokeFavoritesScreen.PokeFavoritesFragment
 import com.poke.bulbazavr.feature.pokeListScreen.PokeListFragment
@@ -14,7 +12,14 @@ import com.poke.bulbazavr.feature.pokeTamagochiScreen.TamagochiFragment
 import com.poke.bulbazavr.services.TamagochiService
 import com.poke.bulbazavr.services.job.TamagochiJobService
 import com.poke.database.FavoritePokemonDatabase
+import com.poke.database.MIGRATION_1_2
+import com.poke.database.dao.FavoritePokemonDao
+import com.poke.database.repositories.FavoritePokemonControlRepository
+import com.poke.database.repositories.FavoritePokemonControlRepositoryDao
 import com.poke.database.repositories.FavoritePokemonRepository
+import com.poke.database.repositories.FavoritePokemonRepositoryDao
+import com.poke.database.usecases.*
+import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -31,7 +36,14 @@ interface AppComponent {
     fun inject(tamagochiJobService: TamagochiJobService)
 }
 
-@Module(includes = [NetworkModule::class, AppBindModule::class, DatabaseModule::class, RoomModule::class, ServiceModule::class])
+@Module(
+    includes = [
+        NetworkModule::class,
+        DatabaseModule::class,
+        RoomModule::class,
+        RepositoryModule::class,
+        UseCasesModule::class]
+)
 class AppModule(@NonNull context: Context) {
     private val appContext = context
 
@@ -43,31 +55,67 @@ class AppModule(@NonNull context: Context) {
     @Provides
     @Singleton
     fun provideGson(): Gson = Gson()
-
-    /*
-    @Provides
-    fun provideAnimationManagerImpl() : AnimationManagerImpl = AnimationManagerImpl()
-
-     */
 }
 
 @Module
-class ServiceModule() {
-    @Provides
-    fun provideTamagochiService(): TamagochiService {
-        return TamagochiService()
-    }
+abstract class UseCasesModule {
+    @Binds
+    @Singleton
+    abstract fun bindGetFavoritePokemonsUseCase(useCase: GetFavoritePokemonsUseCaseImpl): GetFavoritePokemonsUseCase
 
+    @Binds
+    @Singleton
+    abstract fun bindGetFavoritePokemonUseCase(useCase: GetFavoritePokemonUseCaseImpl): GetFavoritePokemonUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindUpdateFavoritePokemonUseCase(useCase: UpdateFavoritePokemonUseCaseImpl): UpdateFavoritePokemonUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindDeleteFavoritePokemonUseCase(useCase: DeleteFavoritePokemonUseCaseImpl): DeleteFavoritePokemonUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindAddFavoritePokemonUseCase(useCase: AddFavoritePokemonUseCaseImpl): AddFavoritePokemonUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindGetHungryPokemonsUseCase(useCase: GetHungryPokemonsUseCaseImpl): GetHungryPokemonsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindGetSadPokemonsUseCase(useCase: GetSadPokemonsUseCaseImpl): GetSadPokemonsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindAddFoodPokemonUseCase(useCase: AddFoodPokemonUseCaseImpl): AddFoodPokemonUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindAddFunPokemonUseCase(useCase: AddFunPokemonUseCaseImpl): AddFunPokemonUseCase
+
+}
+
+@Module
+abstract class RepositoryModule {
+    @Binds
+    @Singleton
+    abstract fun provideFavoritePokeRepository(repository: FavoritePokemonRepository): FavoritePokemonRepositoryDao
+
+    @Binds
+    @Singleton
+    abstract fun provideFavoritePokemonControlRepository(repository: FavoritePokemonControlRepository): FavoritePokemonControlRepositoryDao
 }
 
 @Module
 class DatabaseModule {
     @Provides
     @Singleton
-    fun provideFavoritePokeRepository(roomDatabase: FavoritePokemonDatabase): FavoritePokemonRepository =
-        FavoritePokemonRepository(roomDatabase.favoritePokemonDao())
-}
+    fun provideFavoritePokeDao(roomDatabase: FavoritePokemonDatabase): FavoritePokemonDao =
+        roomDatabase.favoritePokemonDao()
 
+}
 
 @Module
 class RoomModule {
@@ -79,7 +127,11 @@ class RoomModule {
             appContext,
             FavoritePokemonDatabase::class.java,
             "favorite_pokemon_room_database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .addMigrations(MIGRATION_1_2)
+            .build()
 }
 
 @Module
@@ -90,30 +142,5 @@ class NetworkModule {
         return PokeApiService.create()
     }
 
-    @Provides
-    fun getPokemonsUseCase(
-        pokeApiService: PokeApiService
-    ): GetPokemonsUseCase =
-        GetPokemonsUseCase(pokeApiService)
-
-
-    @Provides
-    fun getPokemonUseCase(
-        pokeApiService: PokeApiService
-    ): GetPokemonUseCase =
-        GetPokemonUseCase(pokeApiService)
-
 }
-
-@Module
-interface AppBindModule {
-
-    /*
-    @Binds
-    @Singleton
-    fun bindAnimationManager(animationManagerImpl: AnimationManagerImpl):AnimationManager
-
-     */
-}
-
 
