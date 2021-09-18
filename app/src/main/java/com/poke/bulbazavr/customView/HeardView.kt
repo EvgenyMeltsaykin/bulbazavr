@@ -71,7 +71,6 @@ class HeardView @JvmOverloads constructor(
         super.onLayout(changed, left, top, right, bottom)
     }
 
-    //TODO вынести в другое место расчеты
     override fun onDraw(canvas: Canvas?) {
         if (isEnable) drawEnableHeard(canvas)
         else drawDisableHeard(canvas)
