@@ -7,6 +7,9 @@ import com.poke.core.data.api.responses.BaseResponse
 import com.poke.core.data.api.responses.PokemonResponse
 import com.poke.core.data.dto.PokemonDTO
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.annotations.NonNull
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -20,6 +23,7 @@ class PokeListPresenter @Inject constructor(
     private var page: Int = 0
     private var nextPageUrl: String? = ""
     private var isLoading = false
+    private var disposable: CompositeDisposable = CompositeDisposable()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -35,7 +39,11 @@ class PokeListPresenter @Inject constructor(
 
     private fun getNextPagePokemons() {
         if (nextPageUrl != null && nextPageUrl!!.isEmpty()) viewState.showLoader()
-        getPokemonsUseCase.invoke(
+        disposable.add(getPokemonsFromApi())
+    }
+
+    private fun getPokemonsFromApi(): @NonNull Disposable {
+        return getPokemonsUseCase.invoke(
             params = OffsetLimitRequest(page = page),
         ).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -50,6 +58,7 @@ class PokeListPresenter @Inject constructor(
                     isLoading = false
                 }
             )
+
     }
 
     private fun onSuccessLoadPokemons(response: BaseResponse<PokemonResponse>) {
@@ -62,5 +71,10 @@ class PokeListPresenter @Inject constructor(
 
     fun onPokemonClick(pokemon: PokemonDTO, rvItemBinding: PokemonListItemBinding) {
         viewState.navigateToDetailPokemon(pokemon.name, rvItemBinding)
+    }
+
+    override fun onDestroy() {
+        disposable.dispose()
+        super.onDestroy()
     }
 }

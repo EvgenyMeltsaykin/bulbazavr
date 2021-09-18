@@ -33,7 +33,7 @@ class PokeDetailPresenter @Inject constructor(
     }
 
     override fun onDestroy() {
-        disposable.clear()
+        disposable.dispose()
         super.onDestroy()
     }
 

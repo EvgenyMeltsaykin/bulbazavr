@@ -27,7 +27,6 @@ class TamagochiPresenter @Inject constructor(
         getFavoritePokemonUseCase(pokemonName).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-
                     viewState.setupInfo(it.toFavoritePokemonDTO())
                 },
                 { }
