@@ -7,24 +7,21 @@ import com.poke.database.dao.FavoritePokemonDao
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
 interface FavoritePokemonRepositoryDao {
-    fun getAllFavoritePokemon(): Single<List<PokemonEntity>>
+    fun getAllFavoritePokemons(): Single<List<PokemonEntity>>
     fun insert(pokemon: PokemonDTO): Completable
-    fun getPokemon(pokemonName: String): Single<PokemonEntity>
+    fun getPokemon(pokemonName: String): PokemonEntity?
     fun update(favoritePokemonDTO: FavoritePokemonDTO): Completable
-    fun plusFoodIndicator(pokemonName: String): Completable
-    fun plusFunIndicator(pokemonName: String): Completable
-    fun minusFoodIndicator(): Completable
-    fun minusFunIndicator(): Completable
     fun delete(pokemonName: String): Completable
     fun getHungryPokemons(): Single<List<PokemonEntity>>
     fun getSadPokemons(): Single<List<PokemonEntity>>
 }
 
-class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
+class FavoritePokemonRepository @Inject constructor(private val pokemonDao: FavoritePokemonDao) :
     FavoritePokemonRepositoryDao {
-    override fun getAllFavoritePokemon(): Single<List<PokemonEntity>> =
+    override fun getAllFavoritePokemons(): Single<List<PokemonEntity>> =
         pokemonDao.loadAllFavoritePokemon().subscribeOn(Schedulers.io())
 
     override fun insert(pokemon: PokemonDTO): Completable = pokemonDao.addPokemon(
@@ -34,28 +31,18 @@ class FavoritePokemonRepository(private val pokemonDao: FavoritePokemonDao) :
         )
     ).observeOn(Schedulers.io()).subscribeOn(Schedulers.io())
 
-    override fun getPokemon(pokemonName: String): Single<PokemonEntity> =
-        pokemonDao.loadPokemon(pokemonName = pokemonName).subscribeOn(Schedulers.io())
+    override fun getPokemon(pokemonName: String): PokemonEntity =
+        pokemonDao.loadPokemon(pokemonName = pokemonName)
 
     override fun update(favoritePokemonDTO: FavoritePokemonDTO): Completable =
         pokemonDao.updatePokemon(
             pokemonName = favoritePokemonDTO.name,
             hpIndicator = favoritePokemonDTO.hpIndicator,
             funIndicator = favoritePokemonDTO.funIndicator,
-            foodIndicator = favoritePokemonDTO.foodIndicator
+            foodIndicator = favoritePokemonDTO.foodIndicator,
+            lastTimeGaming = favoritePokemonDTO.lastTimeGaming,
+            lastTimeFeeding = favoritePokemonDTO.lastTimeFeeding
         ).subscribeOn(Schedulers.io())
-
-    override fun plusFoodIndicator(pokemonName: String): Completable =
-        pokemonDao.plusFoodIndicator(pokemonName).subscribeOn(Schedulers.io())
-
-    override fun plusFunIndicator(pokemonName: String): Completable =
-        pokemonDao.plusFunIndicator(pokemonName).subscribeOn(Schedulers.io())
-
-    override fun minusFoodIndicator(): Completable =
-        pokemonDao.minusFoodIndicator().subscribeOn(Schedulers.io())
-
-    override fun minusFunIndicator(): Completable =
-        pokemonDao.minusFunIndicator().subscribeOn(Schedulers.io())
 
     override fun delete(pokemonName: String): Completable =
         pokemonDao.deletePokemon(pokemonName).subscribeOn(Schedulers.io())

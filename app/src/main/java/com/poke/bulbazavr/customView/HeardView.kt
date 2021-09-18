@@ -60,7 +60,7 @@ class HeardView @JvmOverloads constructor(
         setMeasuredDimension(size, size)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         radius = (width / 4).toFloat()
         centerXLeftCircle = (width / 4 + 5).toFloat()
         centerYLeftCircle = (height / 4).toFloat()
@@ -68,6 +68,11 @@ class HeardView @JvmOverloads constructor(
         centerYRightCircle = (height / 4).toFloat()
         distanceX = sin(45F) * radius
         distanceY = cos(45F) * radius
+        super.onLayout(changed, left, top, right, bottom)
+    }
+
+    //TODO вынести в другое место расчеты
+    override fun onDraw(canvas: Canvas?) {
         if (isEnable) drawEnableHeard(canvas)
         else drawDisableHeard(canvas)
         super.onDraw(canvas)

@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Intent
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.poke.bulbazavr.App.Companion.STAT_CHANNEL_ID
 import com.poke.bulbazavr.MainActivity
@@ -15,16 +14,19 @@ import com.poke.bulbazavr.appComponent
 import com.poke.core.data.entity.PokemonEntity
 import com.poke.core.utils.Constants.ID_HUNGRY_NOTIFICATION
 import com.poke.core.utils.Constants.ID_SAD_NOTIFICATION
-import com.poke.core.utils.Constants.MINUS_STAT_IN_15_MINUTE
-import com.poke.database.repositories.FavoritePokemonRepository
+import com.poke.database.usecases.GetHungryPokemonsUseCase
+import com.poke.database.usecases.GetSadPokemonsUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 
 class TamagochiJobService() : JobService() {
+
     @Inject
-    lateinit var pokemonRepository: FavoritePokemonRepository
-    private var firstInit = true
+    lateinit var getHungryPokemonsUseCase: GetHungryPokemonsUseCase
+
+    @Inject
+    lateinit var getSadPokemonsUseCase: GetSadPokemonsUseCase
 
     override fun onCreate() {
         super.onCreate()
@@ -37,26 +39,12 @@ class TamagochiJobService() : JobService() {
     }
 
     private fun backgroundWork(params: JobParameters?) {
-        Log.d("ServiceTest", "backgroundWork")
-        /*
-        if (firstInit){
-            firstInit = false
-            jobFinished(params,true)
-            return
-        }
-
-         */
-        for (i in 0 until MINUS_STAT_IN_15_MINUTE) {
-            pokemonRepository.minusFoodIndicator().subscribe()
-            pokemonRepository.minusFunIndicator().subscribe()
-        }
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        pokemonRepository.getHungryPokemons().observeOn(AndroidSchedulers.mainThread())
+        getHungryPokemonsUseCase().observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     if (it.isNotEmpty()) {
                         val pokemons = getStringPokemonsName(it)
-                        Log.d("ServiceTest", "getHungryPokemons $it")
                         notificationManager.notify(
                             ID_HUNGRY_NOTIFICATION,
                             initNotification(getString(R.string.pokemon_hungry), pokemons)
@@ -65,12 +53,11 @@ class TamagochiJobService() : JobService() {
                 },
                 { }
             )
-        pokemonRepository.getSadPokemons().observeOn(AndroidSchedulers.mainThread())
+        getSadPokemonsUseCase().observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     if (it.isNotEmpty()) {
                         val pokemons = getStringPokemonsName(it)
-                        Log.d("ServiceTest", "getSadPokemons $it")
                         notificationManager.notify(
                             ID_SAD_NOTIFICATION,
                             initNotification(getString(R.string.pokemon_sad), pokemons)
