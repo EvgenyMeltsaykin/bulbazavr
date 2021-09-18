@@ -19,9 +19,9 @@ data class PokemonEntity(
     val funIndicator: Int = 0,
     @ColumnInfo(name = "hpIndicator")
     val hpIndicator: Int = 0,
-    @ColumnInfo(name = "last_time_feeding")
+    @ColumnInfo(name = "lastTimeFeeding")
     val lastTimeFeeding: Long = 0,
-    @ColumnInfo(name = "last_time_gaming")
+    @ColumnInfo(name = "lastTimeGaming")
     val lastTimeGaming: Long = 0,
 ) {
     companion object {

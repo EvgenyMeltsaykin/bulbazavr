@@ -23,7 +23,7 @@ interface FavoritePokemonDao {
     @Query("DELETE FROM ${PokemonEntity.TABLE_NAME} WHERE :pokemonName like name")
     fun deletePokemon(pokemonName: String): Completable
 
-    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET hpIndicator = :hpIndicator, foodIndicator = :foodIndicator,funIndicator = :funIndicator, last_time_feeding = :lastTimeFeeding , last_time_gaming = :lastTimeGaming WHERE :pokemonName like name")
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET hpIndicator = :hpIndicator, foodIndicator = :foodIndicator,funIndicator = :funIndicator, lastTimeFeeding = :lastTimeFeeding , lastTimeGaming = :lastTimeGaming WHERE :pokemonName like name")
     fun updatePokemon(
         pokemonName: String,
         hpIndicator: Int,
@@ -33,10 +33,10 @@ interface FavoritePokemonDao {
         lastTimeGaming: Long,
     ): Completable
 
-    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 , last_time_feeding = :currentTime WHERE :pokemonName like name AND foodIndicator <> 100")
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1 , lastTimeFeeding = :currentTime WHERE :pokemonName like name AND foodIndicator <> 100")
     fun plusFoodIndicator(pokemonName: String, currentTime: Long): Completable
 
-    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1, last_time_gaming = :currentTime WHERE :pokemonName like name AND funIndicator <> 100")
+    @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET funIndicator = funIndicator + 1, hpIndicator = (foodIndicator + funIndicator)/2 + 1, lastTimeGaming = :currentTime WHERE :pokemonName like name AND funIndicator <> 100")
     fun plusFunIndicator(pokemonName: String, currentTime: Long): Completable
 
     @Query("UPDATE ${PokemonEntity.TABLE_NAME} SET foodIndicator = foodIndicator - :countFood, hpIndicator = (foodIndicator + funIndicator)/2 + 1  WHERE :pokemonName like name")
